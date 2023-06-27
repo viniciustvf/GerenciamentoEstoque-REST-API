@@ -17,7 +17,7 @@ public interface ClientService {
 	
 	void delete (Integer id);
 	
-	List<Client> findByNameOrderByNameDesc(String name);
+	List<Client> findByNameContainingOrderByNameDesc(String name);
 	
 	Optional<Client> findByCpf(String cpf);
 	

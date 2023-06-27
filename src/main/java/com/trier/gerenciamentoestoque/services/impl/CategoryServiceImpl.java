@@ -1,8 +1,6 @@
 package com.trier.gerenciamentoestoque.services.impl;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,6 +47,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public Category update(Category category) {
+		findById(category.getId());
 		validateCategory(category);
 		return repository.save(category);
 	}
@@ -69,7 +68,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public List<Category> findByDescriptionOrderByDescriptionDesc(String description) {
+	public List<Category> findByDescriptionContainingOrderByDescriptionDesc(String description) {
 		List<Category> lista = repository.findByDescriptionStartingWithIgnoreCase(description);
 		if ( lista.isEmpty() ) {
 			throw new ObjectNotFound("Nenhuma categoria cadastrada com a descrição %s".formatted(description));

@@ -49,6 +49,7 @@ public class SupplierServiceImpl implements SupplierService {
 
 	@Override
 	public Supplier update(Supplier supplier) {
+		findById(supplier.getId());
 		validateSupplier(supplier);
 		return repository.save(supplier);
 	}

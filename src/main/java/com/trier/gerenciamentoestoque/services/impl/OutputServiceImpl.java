@@ -50,6 +50,7 @@ public class OutputServiceImpl implements OutputService {
 
 	@Override
 	public Output update(Output output) {
+		findById(output.getId());
 		validateOutput(output);
 		return repository.save(output);
 	}

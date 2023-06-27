@@ -33,7 +33,7 @@ public class ClientServiceImpl implements ClientService {
 		}
 	}
 
-	@Override
+	@Override 
 	public Client findById(Integer id) {
 		return repository.findById(id).orElseThrow(() -> new ObjectNotFound("O cliente %s não existe".formatted(id)));
 	}
@@ -55,6 +55,7 @@ public class ClientServiceImpl implements ClientService {
 
 	@Override
 	public Client update(Client client) {
+		findById(client.getId());
 		validateClient(client);
 		return repository.save(client);
 	}
@@ -66,8 +67,8 @@ public class ClientServiceImpl implements ClientService {
 	}
 
 	@Override
-	public List<Client> findByNameOrderByNameDesc(String name) {
-		List<Client> lista = repository.findByNameOrderByNameDesc(name);
+	public List<Client> findByNameContainingOrderByNameDesc(String name) {
+		List<Client> lista = repository.findByNameContainingOrderByNameDesc(name);
 		if (lista.isEmpty()) {	
 			throw new ObjectNotFound("Nenhum nome %s encontrado".formatted(name));
 		}

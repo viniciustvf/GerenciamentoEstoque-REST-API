@@ -56,7 +56,7 @@ public class MovementServiceImpl implements MovementService {
 	@Override
 	public List<Movement> listAll() {
 		List<Movement> lista = repository.findAll();
-		if ( lista.isEmpty() ) {
+		if ( lista.isEmpty() ) { 
 			throw new ObjectNotFound("Nenhum movimento cadastrado");
 		}
 		return lista;
@@ -64,6 +64,7 @@ public class MovementServiceImpl implements MovementService {
 
 	@Override
 	public Movement update(Movement movement) {
+		findById(movement.getId());
 		return repository.save(determineEntryOutput(movement));
 	}
 

@@ -65,6 +65,7 @@ public class ProductMovementServiceImpl implements ProductMovementService {
 
 	@Override
 	public ProductMovement update(ProductMovement productMovement) {
+		findById(productMovement.getId());
 		determineEntryOutput(productMovement);
 		return repository.save(productMovement);
 	}

@@ -1,17 +1,25 @@
 package com.trier.gerenciamentoestoque.models.enums;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Entity
+@Table(name = "movement_type")
+@AllArgsConstructor
+@Getter
 public enum MovementType {
-    
-	ENTRY("Entry"),
-    OUTPUT("Output");
+	
+	ENTRY(1, "Entrada"),
+    OUTPUT(2, "Saída");
 
-    private final String description;
+	@Id
+    private Integer id;
 
-    MovementType(String description) {
-        this.description = description;
-    }
+    @Column(name = "description")
+    private String description;
 
-    public String getDescription() {
-        return description;
-    }
 }

@@ -61,6 +61,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product update(Product product) {
+		findById(product.getId());
 		validateProduct(product);
 		return repository.save(product);
 	}

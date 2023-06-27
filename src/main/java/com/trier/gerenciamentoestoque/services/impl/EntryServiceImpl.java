@@ -35,20 +35,21 @@ public class EntryServiceImpl implements EntryService {
 	@Override
 	public Entry insert(Entry entry) {
 		validateEntry(entry);
-		return repository.save(entry);
+		return repository.save(entry); 
 	}
 
 	@Override
 	public List<Entry> listAll() {
 		List<Entry> lista = repository.findAll();
 		if ( lista.isEmpty() ) {
-			throw new ObjectNotFound("Nenhum entrye cadastrado");
+			throw new ObjectNotFound("Nenhuma entrada cadastrada");
 		}
 		return lista;
 	}
 
 	@Override
 	public Entry update(Entry entry) {
+		findById(entry.getId());
 		validateEntry(entry);
 		return repository.save(entry);
 	}

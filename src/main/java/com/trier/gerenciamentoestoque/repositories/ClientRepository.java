@@ -11,7 +11,7 @@ import com.trier.gerenciamentoestoque.models.Client;
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Integer>{
 
-	List<Client> findByNameOrderByNameDesc(String name);
+	List<Client> findByNameContainingOrderByNameDesc(String name);
 	
 	Optional<Client> findByCpf(String cpf);
 	

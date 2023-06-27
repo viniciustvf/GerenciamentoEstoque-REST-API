@@ -59,7 +59,7 @@ public class CategoryResource {
 	}
 
 	@GetMapping("/name-order/{name}")
-	public ResponseEntity<List<Category>> findByDescriptionOrderByDescriptionDesc(@PathVariable String name) {
-		return ResponseEntity.ok(service.findByDescriptionOrderByDescriptionDesc(name));
+	public ResponseEntity<List<Category>> findByDescriptionContainingOrderByDescriptionDesc(@PathVariable String name) {
+		return ResponseEntity.ok(service.findByDescriptionContainingOrderByDescriptionDesc(name));
 	}
 }

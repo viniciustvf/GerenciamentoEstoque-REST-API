@@ -1,5 +1,6 @@
 package com.trier.gerenciamentoestoque.models;
 
+import com.trier.gerenciamentoestoque.models.dto.ProductDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,5 +44,12 @@ public class Product {
 	
 	@ManyToOne
 	private Category category;
-
+	
+	public Product (ProductDTO dto, Category category) {
+		this(dto.getId(), dto.getName(), dto.getPrice(), dto.getBarcode(), dto.getAmount(), category); 
+	}
+	
+	public ProductDTO toDTO() {
+	    return new ProductDTO(getId(), getName(), getPrice(), getBarcode(), getAmount(), category.getId(), category.getDescription()); 
+	}
 }

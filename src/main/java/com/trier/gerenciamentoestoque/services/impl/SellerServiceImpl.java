@@ -49,6 +49,7 @@ public class SellerServiceImpl implements SellerService {
 
 	@Override
 	public Seller update(Seller seller) {
+		findById(seller.getId());
 		validateSeller(seller);
 		return repository.save(seller);
 	}

@@ -37,7 +37,7 @@ public class Movement {
 	@Column(name = "datetime_movement")
 	private ZonedDateTime dateTime;
 	
-    @Column(name = "type_movement")
+    @Column(name = "type_movement", updatable = false)
     private MovementType movementType;
     
     @ManyToOne

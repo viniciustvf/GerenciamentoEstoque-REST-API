@@ -1,6 +1,11 @@
 package com.trier.gerenciamentoestoque.models;
 
 
+import com.trier.gerenciamentoestoque.models.dto.MovementDTO;
+import com.trier.gerenciamentoestoque.models.dto.ProductMovementDTO;
+import com.trier.gerenciamentoestoque.utils.DateUtils;
+import com.trier.gerenciamentoestoque.utils.EnumUtils;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,4 +43,11 @@ public class ProductMovement {
 	@ManyToOne
 	private Movement movement;
 
+	public ProductMovement(ProductMovementDTO dto, Product product, Movement movement) {
+		this(dto.getId(), dto.getQuantity(), product, movement); 
+	}
+	
+	public ProductMovementDTO toDTO() {
+	    return new ProductMovementDTO(getId(), getQuantity(), product.getId(), product.getName(), movement.getId(), movement.getMovementType().getDescription()); 
+	}
 }

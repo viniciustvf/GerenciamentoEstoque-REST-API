@@ -54,9 +54,9 @@ public class ClientResource {
 		return ResponseEntity.ok(service.listAll());
 	}
 
-	@GetMapping("/name-order/{name}")
-	public ResponseEntity<List<Client>> findByNameOrderByNameDesc(@PathVariable String name) {
-		return ResponseEntity.ok(service.findByNameOrderByNameDesc(name));
+	@GetMapping("/name-containing/{name}")
+	public ResponseEntity<List<Client>> findByNameContainingOrderByNameDesc(@PathVariable String name) {
+		return ResponseEntity.ok(service.findByNameContainingOrderByNameDesc(name));
 	}
 
 	@GetMapping("/cpf/{cpf}")

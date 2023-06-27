@@ -1,6 +1,11 @@
 package com.trier.gerenciamentoestoque.models;
 
 
+import com.trier.gerenciamentoestoque.models.dto.MovementDTO;
+import com.trier.gerenciamentoestoque.models.dto.OutputDTO;
+import com.trier.gerenciamentoestoque.utils.DateUtils;
+import com.trier.gerenciamentoestoque.utils.EnumUtils;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,5 +37,13 @@ public class Output {
 	
 	@ManyToOne
 	private Seller seller;
+	
+    public Output (OutputDTO dto, Client client, Seller seller) {
+		this(dto.getId(), client, seller); 
+	}
+	
+	public OutputDTO toDTO() {
+	    return new OutputDTO(getId(), client.getId(), client.getName(), seller.getId(), seller.getName()); 
+	}
 	
 }
