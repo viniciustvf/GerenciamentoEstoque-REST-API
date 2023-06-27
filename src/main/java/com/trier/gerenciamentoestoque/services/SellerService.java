@@ -1,6 +1,7 @@
 package com.trier.gerenciamentoestoque.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.trier.gerenciamentoestoque.models.Seller;
 
@@ -18,6 +19,6 @@ public interface SellerService {
 	
 	List<Seller> findByName(String name);
 	
-	Seller findByRegistration(String registration);
+	Optional<Seller> findByRegistration(String registration);
 	
 }

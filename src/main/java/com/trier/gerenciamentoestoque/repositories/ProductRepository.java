@@ -1,6 +1,7 @@
 package com.trier.gerenciamentoestoque.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -17,7 +18,7 @@ public interface  ProductRepository extends JpaRepository<Product, Integer>{
 	
 	List<Product> findByPriceBetween(Double priceI, Double priceF);
 
-	Product findByBarcode(Integer barcode);
+	Optional<Product> findByBarcode(Integer barcode);
 	
 	List<Product> findByAmount(Integer amount);
 	

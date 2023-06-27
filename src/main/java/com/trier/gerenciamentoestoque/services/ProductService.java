@@ -1,6 +1,7 @@
 package com.trier.gerenciamentoestoque.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.trier.gerenciamentoestoque.models.Category;
 import com.trier.gerenciamentoestoque.models.Product;
@@ -23,7 +24,7 @@ public interface ProductService {
 	
 	List<Product> findByPriceBetween(Double priceI, Double priceF);
 
-	Product findByBarcode(Integer barcode);
+	Optional<Product> findByBarcode(Integer barcode);
 	
 	List<Product> findByAmount(Integer amount);
 	

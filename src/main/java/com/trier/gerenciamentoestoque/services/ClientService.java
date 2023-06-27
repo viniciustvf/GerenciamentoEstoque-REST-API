@@ -1,6 +1,7 @@
 package com.trier.gerenciamentoestoque.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.trier.gerenciamentoestoque.models.Client;
 
@@ -18,12 +19,12 @@ public interface ClientService {
 	
 	List<Client> findByNameOrderByNameDesc(String name);
 	
-	Client findByCpf(String cpf);
+	Optional<Client> findByCpf(String cpf);
 	
 	List<Client> findByAge(Integer age);
 	
 	List<Client> findByAgeBetween(Integer ageI, Integer ageF);
 	
-	Client findByNumber(Long number);
+	Optional<Client> findByNumber(Long number);
 	
 }

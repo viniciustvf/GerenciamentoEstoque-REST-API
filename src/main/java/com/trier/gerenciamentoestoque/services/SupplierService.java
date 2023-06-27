@@ -1,6 +1,7 @@
 package com.trier.gerenciamentoestoque.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.trier.gerenciamentoestoque.models.Supplier;
 
@@ -18,6 +19,6 @@ public interface SupplierService {
 	
 	List<Supplier> findByName(String name);
 	
-	Supplier findByCnpj(String cnpj);
+	Optional<Supplier> findByCnpj(String cnpj);
 
 }

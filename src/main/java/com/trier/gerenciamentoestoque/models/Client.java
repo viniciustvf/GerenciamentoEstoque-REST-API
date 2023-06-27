@@ -42,7 +42,6 @@ public class Client {
 	private Integer age;
 	
 	@Column(name = "number_client", unique = true)
-	@Size(max = 11)
 	private Long number;
 
 }

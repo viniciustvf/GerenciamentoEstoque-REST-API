@@ -1,5 +1,5 @@
 package com.trier.gerenciamentoestoque.resources;
 
-public class s {
+public class OutputResource {
 
 }

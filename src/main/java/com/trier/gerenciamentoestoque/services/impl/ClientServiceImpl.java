@@ -1,6 +1,7 @@
 package com.trier.gerenciamentoestoque.services.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class ClientServiceImpl implements ClientService {
 		if(client.getName() == null) {
 			throw new IntegrityViolation("Nome não pode ser nulo");
 		}
-		if(client.getNumber() == null) {
+		if(client.getNumber() == null || String.valueOf(client.getNumber()).length() > 11 ) {
 			throw new IntegrityViolation("Número inválido");
 		}
 	}
@@ -74,8 +75,8 @@ public class ClientServiceImpl implements ClientService {
 	}
 
 	@Override
-	public Client findByCpf(String cpf) {
-		return repository.findByCpf(cpf);
+	public Optional<Client> findByCpf(String cpf) {
+		return Optional.ofNullable(repository.findByCpf(cpf).orElseThrow(() -> new ObjectNotFound("Cliente não encontrado com CPF %s".formatted(cpf))));
 	}
 
 	@Override
@@ -97,8 +98,8 @@ public class ClientServiceImpl implements ClientService {
 	}
 
 	@Override
-	public Client findByNumber(Long number) {
-		return repository.findByNumber(number);
+	public Optional<Client> findByNumber(Long number) {
+		return Optional.ofNullable(repository.findByNumber(number).orElseThrow(() -> new ObjectNotFound("Cliente não encontrado com numero %s".formatted(number))));
 	}
 	
 }	
