@@ -5,12 +5,12 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import ch.qos.logback.core.net.server.Client;
+import com.trier.gerenciamentoestoque.models.Client;
 
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Integer>{
 
-	List<Client> findByNameOrderBySizeDesc(String name);
+	List<Client> findByNameOrderByNameDesc(String name);
 	
 	Client findByCpf(String cpf);
 	
@@ -18,6 +18,6 @@ public interface ClientRepository extends JpaRepository<Client, Integer>{
 	
 	List<Client> findByAgeBetween(Integer ageI, Integer ageF);
 	
-	Client findByNumber(String number);
+	Client findByNumber(Long number);
 	
 }

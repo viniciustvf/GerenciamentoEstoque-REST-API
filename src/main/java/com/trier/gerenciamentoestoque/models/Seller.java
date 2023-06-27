@@ -27,7 +27,7 @@ public class Seller {
 	private Integer id;
 	
 	@Column(name = "name_seller")
-	private String description;
+	private String name;
 	
 	@Column(name = "registration_seller", unique = true)
 	private String registration;

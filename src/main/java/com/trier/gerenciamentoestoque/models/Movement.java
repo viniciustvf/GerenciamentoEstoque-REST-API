@@ -38,10 +38,6 @@ public class Movement {
 	@Column(name = "datetime_movement")
 	private ZonedDateTime dateTime;
 	
-	@Column(name = "quantity_movement")
-	@Size(max = 4)
-	private Integer quantity;
-	
     @Column(name = "type_movement")
     private MovementType movementType;
     

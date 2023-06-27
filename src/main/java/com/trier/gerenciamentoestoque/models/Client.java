@@ -30,7 +30,7 @@ public class Client {
 	private Integer id;
 	
 	@Column(name = "name_client")
-	private String description;
+	private String name;
 	
 	@Column(name = "cpf_client", unique = true)
 	@Size(max = 11)
@@ -43,6 +43,6 @@ public class Client {
 	
 	@Column(name = "number_client", unique = true)
 	@Size(max = 11)
-	private String number;
+	private Long number;
 
 }

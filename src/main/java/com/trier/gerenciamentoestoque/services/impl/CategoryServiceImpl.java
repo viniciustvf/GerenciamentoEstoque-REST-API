@@ -69,7 +69,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public List<Category> findByDescriptionOrderBySizeDesc(String description) {
+	public List<Category> findByDescriptionOrderByDescriptionDesc(String description) {
 		List<Category> lista = repository.findByDescriptionStartingWithIgnoreCase(description);
 		if ( lista.isEmpty() ) {
 			throw new ObjectNotFound("Nenhuma categoria cadastrada com a descrição %s".formatted(description));

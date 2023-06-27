@@ -15,5 +15,7 @@ public interface  ProductMovementRepository extends JpaRepository<ProductMovemen
 	List<ProductMovement> findByProduct(Product product);
 
 	List<ProductMovement> findByMovement(Movement movement);
+	
+	List<ProductMovement> findByQuantity(Integer quantity);
 
 }

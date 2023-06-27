@@ -10,7 +10,7 @@ import com.trier.gerenciamentoestoque.models.Category;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer>{
 
-	List<Category> findByDescriptionOrderBySizeDesc(String description);
+	List<Category> findByDescriptionOrderByDescriptionDesc(String description);
 	
 	List<Category> findByDescriptionStartingWithIgnoreCase(String description);
 	

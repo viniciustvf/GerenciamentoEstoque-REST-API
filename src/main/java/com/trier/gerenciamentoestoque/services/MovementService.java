@@ -19,9 +19,7 @@ public interface MovementService {
 	
 	void delete (Integer id);
 	
-	List<Movement> findByDate(ZonedDateTime date);
-	
-	List<Movement> findByQuantity(Integer quantity);
+	List<Movement> findByDateTime(ZonedDateTime date);
 	
 	List<Movement> findByEntry(Entry entry);
 	

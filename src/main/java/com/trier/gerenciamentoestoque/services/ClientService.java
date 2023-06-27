@@ -16,7 +16,7 @@ public interface ClientService {
 	
 	void delete (Integer id);
 	
-	List<Client> findByNameOrderBySizeDesc(String name);
+	List<Client> findByNameOrderByNameDesc(String name);
 	
 	Client findByCpf(String cpf);
 	
@@ -24,6 +24,6 @@ public interface ClientService {
 	
 	List<Client> findByAgeBetween(Integer ageI, Integer ageF);
 	
-	Client findByNumber(String number);
+	Client findByNumber(Long number);
 	
 }

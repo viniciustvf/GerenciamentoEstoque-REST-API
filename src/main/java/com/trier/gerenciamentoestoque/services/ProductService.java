@@ -17,7 +17,7 @@ public interface ProductService {
 	
 	void delete (Integer id);
 	
-	List<Product> findByNameOrderBySizeDesc(String name);
+	List<Product> findByNameOrderByNameDesc(String name);
 
 	List<Product> findByPrice(Double price);
 	

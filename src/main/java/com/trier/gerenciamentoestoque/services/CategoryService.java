@@ -17,7 +17,7 @@ public interface CategoryService {
 	
 	void delete (Integer id);
 	
-	List<Category> findByDescriptionOrderBySizeDesc(String description);
+	List<Category> findByDescriptionOrderByDescriptionDesc(String description);
 	
 	List<Category> findByDescriptionStartingWithIgnoreCase(String description);
 	

@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -27,6 +28,10 @@ public class ProductMovement {
 	@Column(name = "id_productMovement")
 	private Integer id;
 
+	@Column(name = "quantity_movement")
+	@Size(max = 4)
+	private Integer quantity;
+	
 	@ManyToOne
 	private Product product;
 	

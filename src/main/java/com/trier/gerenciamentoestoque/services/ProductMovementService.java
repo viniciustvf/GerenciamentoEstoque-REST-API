@@ -22,4 +22,6 @@ public interface ProductMovementService {
 
 	List<ProductMovement> findByMovement(Movement movement);
 	
+	List<ProductMovement> findByQuantity(Integer quantity);
+	
 }

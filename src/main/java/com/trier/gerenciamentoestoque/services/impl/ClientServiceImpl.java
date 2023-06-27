@@ -1,8 +1,6 @@
 package com.trier.gerenciamentoestoque.services.impl;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +11,6 @@ import com.trier.gerenciamentoestoque.services.ClientService;
 import com.trier.gerenciamentoestoque.services.exceptions.IntegrityViolation;
 import com.trier.gerenciamentoestoque.services.exceptions.ObjectNotFound;
 
-
-
 @Service
 public class ClientServiceImpl implements ClientService {
 
@@ -23,7 +19,16 @@ public class ClientServiceImpl implements ClientService {
 	
 	private void validateClient(Client client) {
 		if(client.getAge() == null) {
-			throw new IntegrityViolation("Idade do cliente não pode ser nula");
+			throw new IntegrityViolation("Idade não pode ser nula");
+		}
+		if(client.getCpf() == null) {
+			throw new IntegrityViolation("CPF não pode ser nulo");
+		}
+		if(client.getName() == null) {
+			throw new IntegrityViolation("Nome não pode ser nulo");
+		}
+		if(client.getNumber() == null) {
+			throw new IntegrityViolation("Número inválido");
 		}
 	}
 
@@ -42,7 +47,7 @@ public class ClientServiceImpl implements ClientService {
 	public List<Client> listAll() {
 		List<Client> lista = repository.findAll();
 		if ( lista.isEmpty() ) {
-			throw new ObjectNotFound("Nenhuma categoria cadastrada");
+			throw new ObjectNotFound("Nenhum cliente cadastrado");
 		}
 		return lista;
 	}
@@ -57,6 +62,43 @@ public class ClientServiceImpl implements ClientService {
 	public void delete(Integer id) {
 		Client client = findById(id);
 		repository.delete(client);
+	}
+
+	@Override
+	public List<Client> findByNameOrderByNameDesc(String name) {
+		List<Client> lista = repository.findByNameOrderByNameDesc(name);
+		if (lista.isEmpty()) {	
+			throw new ObjectNotFound("Nenhum nome %s encontrado".formatted(name));
+		}
+		return lista;
+	}
+
+	@Override
+	public Client findByCpf(String cpf) {
+		return repository.findByCpf(cpf);
+	}
+
+	@Override
+	public List<Client> findByAge(Integer age) {
+		List<Client> lista = repository.findByAge(age);
+		if (lista.isEmpty()) {	
+			throw new ObjectNotFound("Nenhum cliente encontrado com %s anos".formatted(age));
+		}
+		return lista;
+	}
+
+	@Override
+	public List<Client> findByAgeBetween(Integer ageI, Integer ageF) {
+		List<Client> lista = repository.findByAgeBetween(ageI, ageF);
+		if (lista.isEmpty()) {	
+			throw new ObjectNotFound("Nenhum cliente encontrado com idades entre %s e %s anos".formatted(ageI, ageF));
+		}
+		return lista;
+	}
+
+	@Override
+	public Client findByNumber(Long number) {
+		return repository.findByNumber(number);
 	}
 	
 }	

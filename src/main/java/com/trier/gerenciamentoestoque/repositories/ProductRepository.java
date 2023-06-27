@@ -11,7 +11,7 @@ import com.trier.gerenciamentoestoque.models.Product;
 @Repository
 public interface  ProductRepository extends JpaRepository<Product, Integer>{
 	
-	List<Product> findByNameOrderBySizeDesc(String name);
+	List<Product> findByNameOrderByNameDesc(String name);
 
 	List<Product> findByPrice(Double price);
 	
