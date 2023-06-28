@@ -53,8 +53,8 @@ public class SupplierResource {
 	}
 
 	@GetMapping("/name/{name}")
-	public ResponseEntity<List<Supplier>> findByName(@PathVariable String name) {
-		return ResponseEntity.ok(service.findByName(name));
+	public ResponseEntity<List<Supplier>> findByNameStartingWithIgnoreCaseOrderByNameDesc(@PathVariable String name) {
+		return ResponseEntity.ok(service.findByNameStartingWithIgnoreCaseOrderByNameDesc(name));
 	}
 
 	@GetMapping("/registration/{registration}")

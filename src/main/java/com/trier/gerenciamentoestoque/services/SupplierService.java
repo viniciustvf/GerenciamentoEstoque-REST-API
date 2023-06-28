@@ -17,7 +17,7 @@ public interface SupplierService {
 	
 	void delete (Integer id);
 	
-	List<Supplier> findByName(String name);
+	List<Supplier> findByNameStartingWithIgnoreCaseOrderByNameDesc(String name);
 	
 	Optional<Supplier> findByCnpj(String cnpj);
 

@@ -61,8 +61,8 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public List<Seller> findByName(String name) {
-		List<Seller> lista = repository.findAll();
+	public List<Seller> findByNameStartingWithIgnoreCaseOrderByNameDesc(String name) {
+		List<Seller> lista = repository.findByNameStartingWithIgnoreCaseOrderByNameDesc(name);
 		if ( lista.isEmpty() ) {
 			throw new ObjectNotFound("Nenhum vendedor com nome %s cadastrado".formatted(name));
 		}

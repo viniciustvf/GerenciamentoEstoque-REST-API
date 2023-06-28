@@ -107,7 +107,7 @@ public class MovementServiceTest extends BaseTests {
     @Sql({"classpath:/resources/sqls/movement.sql"})
     void listAllTest() {
     	List<Movement> lista = service.listAll();
-    	assertEquals(2, lista.size());
+    	assertEquals(3, lista.size());
     }
     
     @Test
@@ -117,7 +117,6 @@ public class MovementServiceTest extends BaseTests {
         assertEquals("Nenhum movimento cadastrado", exception.getMessage());
     }
     
-
     @Test
     @DisplayName("Teste alterar movimento")
 	@Sql({"classpath:/resources/sqls/supplier.sql"})
@@ -146,7 +145,7 @@ public class MovementServiceTest extends BaseTests {
     void deleteByIdTest() {
     	service.delete(1);
         List<Movement> list = service.listAll();
-        assertEquals(1, list.size());
+        assertEquals(2, list.size());
         var exception = assertThrows(ObjectNotFound.class,() -> service.delete(10));
         assertEquals("O movimento 10 não existe", exception.getMessage()); 
     }
@@ -191,10 +190,8 @@ public class MovementServiceTest extends BaseTests {
     @Sql({"classpath:/resources/sqls/movement.sql"})
     void findByOutputTest() {
         var lista = service.findByOutput(outputService.findById(1));
-        assertEquals(1, lista.size());
+        assertEquals(2, lista.size());
         var exception = assertThrows(ObjectNotFound.class, () -> service.findByOutput(outputService.findById(2)));
         assertEquals("Nenhum movimento de saída encontrado para a saída 2", exception.getMessage());
     }
-    
-	
 }

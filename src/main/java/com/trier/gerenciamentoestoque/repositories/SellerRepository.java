@@ -12,7 +12,7 @@ import com.trier.gerenciamentoestoque.models.Seller;
 @Repository
 public interface SellerRepository extends JpaRepository<Seller, Integer>{
 	
-	List<Seller> findByName(String name);
+	List<Seller> findByNameStartingWithIgnoreCaseOrderByNameDesc(String name);
 	
 	Optional<Seller> findByRegistration(String registration);
 	

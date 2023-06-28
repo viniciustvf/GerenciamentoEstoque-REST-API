@@ -17,7 +17,7 @@ public interface SellerService {
 	
 	void delete (Integer id);
 	
-	List<Seller> findByName(String name);
+	List<Seller> findByNameStartingWithIgnoreCaseOrderByNameDesc(String name);
 	
 	Optional<Seller> findByRegistration(String registration);
 	

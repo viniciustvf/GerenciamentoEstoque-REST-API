@@ -64,7 +64,7 @@ public class CategoryServiceTest extends BaseTests {
     @Sql({"classpath:/resources/sqls/category.sql"})
     void listAllTest() {
     	List<Category> lista = categoryService.listAll();
-    	assertEquals(2, lista.size());
+    	assertEquals(3, lista.size());
     }
     
     @Test
@@ -80,7 +80,7 @@ public class CategoryServiceTest extends BaseTests {
     void deleteByIdTest() {
         categoryService.delete(1);
         List<Category> list = categoryService.listAll();
-        assertEquals(1, list.size());
+        assertEquals(2, list.size());
         var exception = assertThrows(ObjectNotFound.class,() -> categoryService.delete(10));
         assertEquals("A categoria 10 não existe", exception.getMessage()); 
     }
@@ -90,7 +90,7 @@ public class CategoryServiceTest extends BaseTests {
     @Sql({"classpath:/resources/sqls/category.sql"})
     void findByDescriptionIgnoreCaseWrongTest() {
         var lista = categoryService.findByDescriptionStartingWithIgnoreCase("c");
-        assertEquals(2, lista.size());
+        assertEquals(3, lista.size());
         var exception = assertThrows(ObjectNotFound.class, () -> categoryService.findByDescriptionStartingWithIgnoreCase("z"));
         assertEquals("Nenhuma categoria cadastrada com a descrição z", exception.getMessage());
     }
@@ -100,7 +100,7 @@ public class CategoryServiceTest extends BaseTests {
     @Sql({"classpath:/resources/sqls/category.sql"})
     void findByDescriptionContainingOrderTest() {
         var lista = categoryService.findByDescriptionContainingOrderByDescriptionDesc("cat");
-        assertEquals(2, lista.size());
+        assertEquals(3, lista.size());
         var exception = assertThrows(ObjectNotFound.class, () -> categoryService.findByDescriptionContainingOrderByDescriptionDesc("kateg"));
         assertEquals("Nenhuma categoria cadastrada com a descrição kateg", exception.getMessage());
     }

@@ -27,7 +27,7 @@ import com.trier.gerenciamentoestoque.services.SupplierService;
 public class EntryResource {
 
 	@Autowired
-	private EntryService service;
+	private EntryService service; 
 	
 	@Autowired
 	private SupplierService supplierService;

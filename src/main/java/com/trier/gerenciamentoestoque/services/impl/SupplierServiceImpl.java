@@ -23,7 +23,7 @@ public class SupplierServiceImpl implements SupplierService {
 			throw new IntegrityViolation("O nome do fornecedor(a) não pode ser nulo");
 		}
 		if(supplier.getCnpj() == null) {
-			throw new IntegrityViolation("O CNPJ do fornecedor náo pode ser nulo");
+			throw new IntegrityViolation("O CNPJ do fornecedor não pode ser nulo");
 		}
 	}
 
@@ -61,8 +61,8 @@ public class SupplierServiceImpl implements SupplierService {
 	}
 
 	@Override
-	public List<Supplier> findByName(String name) {
-		List<Supplier> lista = repository.findByName(name);
+	public List<Supplier> findByNameStartingWithIgnoreCaseOrderByNameDesc(String name) {
+		List<Supplier> lista = repository.findByNameStartingWithIgnoreCaseOrderByNameDesc(name);
 		if ( lista.isEmpty() ) {
 			throw new ObjectNotFound("Nenhum fornecedor cadastrado com o nome %s".formatted(name));
 		}

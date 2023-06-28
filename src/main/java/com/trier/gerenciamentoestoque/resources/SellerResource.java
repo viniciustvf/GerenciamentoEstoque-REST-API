@@ -58,9 +58,9 @@ public class SellerResource {
 		return ResponseEntity.ok(service.listAll());
 	}
 
-	@GetMapping("/name/{name}")
-	public ResponseEntity<List<Seller>> findByName(@PathVariable String name) {
-		return ResponseEntity.ok(service.findByName(name));
+	@GetMapping("/name-starts/{name}")
+	public ResponseEntity<List<Seller>> findByNameStartingWithIgnoreCaseOrderByNameDesc(@PathVariable String name) {
+		return ResponseEntity.ok(service.findByNameStartingWithIgnoreCaseOrderByNameDesc(name));
 	}
 
 	@GetMapping("/registration/{registration}")

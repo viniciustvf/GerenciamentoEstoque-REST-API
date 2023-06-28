@@ -61,9 +61,9 @@ public class ProductResource {
 		return ResponseEntity.ok(service.listAll().stream().map((Product) -> Product.toDTO()).toList());
 	}
 	
-	@GetMapping("/name/{name}")
-	public ResponseEntity<List<ProductDTO>> findByNameOrderByNameDesc(@PathVariable String name) {
-		List<Product> lista = service.findByNameOrderByNameDesc(name);
+	@GetMapping("/name-starts/{name}")
+	public ResponseEntity<List<ProductDTO>> findByNameStartingWithIgnoreCaseOrderByNameDesc(@PathVariable String name) {
+		List<Product> lista = service.findByNameStartingWithIgnoreCaseOrderByNameDesc(name);
 		return ResponseEntity.ok(lista.stream().map((Product) -> Product.toDTO()).toList());		
 	}
 	

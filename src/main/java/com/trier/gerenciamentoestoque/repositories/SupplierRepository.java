@@ -12,7 +12,7 @@ import com.trier.gerenciamentoestoque.models.Supplier;
 @Repository
 public interface SupplierRepository extends JpaRepository<Supplier, Integer>{
 	
-	List<Supplier> findByName(String name);
+	List<Supplier> findByNameStartingWithIgnoreCaseOrderByNameDesc(String name);
 	
 	Optional<Supplier> findByCnpj(String cnpj);
 	

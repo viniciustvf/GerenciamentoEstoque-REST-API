@@ -54,7 +54,7 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> listAll() {
 		List<Product> lista = repository.findAll();
 		if ( lista.isEmpty() ) {
-			throw new ObjectNotFound("Nenhuma produto cadastrado");
+			throw new ObjectNotFound("Nenhum produto cadastrado");
 		}
 		return lista;
 	}
@@ -73,8 +73,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> findByNameOrderByNameDesc(String name) {
-		List<Product> lista = repository.findByNameOrderByNameDesc(name);
+	public List<Product> findByNameStartingWithIgnoreCaseOrderByNameDesc(String name) {
+		List<Product> lista = repository.findByNameStartingWithIgnoreCaseOrderByNameDesc(name);
 		if (lista.isEmpty()) {	
 			throw new ObjectNotFound("Nenhum produto encontrado com o nome %s".formatted(name));
 		}
@@ -125,7 +125,7 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> findByCategory(Category category) {
 		List<Product> lista = repository.findByCategory(category);
 		if (lista.isEmpty()) {	
-			throw new ObjectNotFound("Nenhum produto encontrado para a categoria %s".formatted(category));
+			throw new ObjectNotFound("Nenhum produto encontrado para a categoria %s".formatted(category.getDescription()));
 		}
 		return lista;
 	}
