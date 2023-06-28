@@ -22,11 +22,8 @@ public class MovementServiceImpl implements MovementService {
 	private MovementRepository repository;
 	
 	private void validateMovement(Movement movement) {
-		if(movement.getDateTime() == null) {
-			throw new IntegrityViolation("Data e hora não podem ser nulas");
-		}
-		if(movement.getMovementType() == null) {
-			throw new IntegrityViolation("Tipo do movimento não pode ser nulo");
+		if(movement.getDateTime() == null || movement.getDateTime().isBefore(ZonedDateTime.now())) {
+			throw new IntegrityViolation("Data e hora inválidas");
 		}
 	}
 	
@@ -45,12 +42,13 @@ public class MovementServiceImpl implements MovementService {
 	
 	@Override
 	public Movement findById(Integer id) {
-		return repository.findById(id).orElseThrow(() -> new ObjectNotFound("O movimeno %s não existe".formatted(id)));
+		return repository.findById(id).orElseThrow(() -> new ObjectNotFound("O movimento %s não existe".formatted(id)));
 	}
 
 	@Override
 	public Movement insert(Movement movement) {
-		return repository.save(determineEntryOutput(movement));
+		Movement m = determineEntryOutput(movement);
+		return repository.save(m);
 	}
 
 	@Override
@@ -65,7 +63,8 @@ public class MovementServiceImpl implements MovementService {
 	@Override
 	public Movement update(Movement movement) {
 		findById(movement.getId());
-		return repository.save(determineEntryOutput(movement));
+		Movement m = determineEntryOutput(movement);
+		return repository.save(m);
 	}
 
 	@Override

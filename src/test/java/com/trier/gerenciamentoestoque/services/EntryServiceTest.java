@@ -87,7 +87,7 @@ public class EntryServiceTest extends BaseTests {
     	Entry entry = new Entry(1, 3, supplierService.findById(1));
     	service.update(entry);
         assertEquals(1, entry.getId());
-        assertEquals(3, entry.getCodStock());
+        assertEquals(3, entry.getCodStock()); 
     }
     
     @Test

@@ -5,9 +5,13 @@ import java.time.ZonedDateTime;
 
 import com.trier.gerenciamentoestoque.models.dto.MovementDTO;
 import com.trier.gerenciamentoestoque.models.enums.MovementType;
+import com.trier.gerenciamentoestoque.utils.DateUtils;
+import com.trier.gerenciamentoestoque.utils.EnumUtils;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,13 +21,10 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import com.trier.gerenciamentoestoque.utils.DateUtils;
-import com.trier.gerenciamentoestoque.utils.EnumUtils;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode (of = "id")
 @Entity(name = "movement")
 public class Movement {
@@ -38,6 +39,7 @@ public class Movement {
 	private ZonedDateTime dateTime;
 	
     @Column(name = "type_movement", updatable = false)
+    @Enumerated(EnumType.STRING)
     private MovementType movementType;
     
     @ManyToOne
@@ -47,11 +49,20 @@ public class Movement {
 	private Output output;
 
     public Movement (MovementDTO dto, Entry entry, Output output) {
-		this(dto.getId(), DateUtils.strToZonedDateTime(dto.getDateTime()), EnumUtils.strMovementTypeToEnum(dto.getMovementTypeString()), entry, output); 
+		this(dto.getId(), DateUtils.strToZonedDateTime(dto.getDateTime()), entry, output); 
 	}
 	
 	public MovementDTO toDTO() {
-	    return new MovementDTO(getId(), DateUtils.zonedDateTimeToStr(dateTime), movementType.getDescription(), entry.getId(), output.getId()); 
+	    return new MovementDTO(getId(), DateUtils.zonedDateTimeToStr(dateTime), movementType.name(), entry.getId(), output.getId()); 
 	}
+
+	public Movement(Integer id, ZonedDateTime dateTime, Entry entry, Output output) {
+		this.id = id;
+		this.dateTime = dateTime;
+		this.entry = entry;
+		this.output = output;
+	}
+	
+	
 
 }

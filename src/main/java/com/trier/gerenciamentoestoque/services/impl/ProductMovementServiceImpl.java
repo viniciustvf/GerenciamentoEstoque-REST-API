@@ -23,7 +23,7 @@ public class ProductMovementServiceImpl implements ProductMovementService {
 	private void validateProductMovement(ProductMovement productMovement) {
 		if(productMovement.getMovement() == null) {
 			throw new IntegrityViolation("Movimento não pode ser nulo");
-		}
+		} 
 		if(productMovement.getProduct() == null) {
 			throw new IntegrityViolation("Produto não pode ser nulo");
 		}
@@ -58,7 +58,7 @@ public class ProductMovementServiceImpl implements ProductMovementService {
 	public List<ProductMovement> listAll() {
 		List<ProductMovement> lista = repository.findAll();
 		if ( lista.isEmpty() ) {
-			throw new ObjectNotFound("Nenhuma produto movimento cadastrado");
+			throw new ObjectNotFound("Nenhum produto movimento cadastrado");
 		}
 		return lista;
 	}
@@ -80,7 +80,7 @@ public class ProductMovementServiceImpl implements ProductMovementService {
 	public List<ProductMovement> findByProduct(Product product) {
 		List<ProductMovement> lista = repository.findByProduct(product);
 		if (lista.isEmpty()) {	
-			throw new ObjectNotFound("Nenhum produto %s encontrado".formatted(product.getName()));
+			throw new ObjectNotFound("Nenhum produto movimento encontrado para o produto %s".formatted(product.getName()));
 		}
 		return lista;
 	}
@@ -102,5 +102,4 @@ public class ProductMovementServiceImpl implements ProductMovementService {
 		}
 		return lista;
 	}
-
 }	

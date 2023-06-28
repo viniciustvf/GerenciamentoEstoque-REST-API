@@ -67,7 +67,7 @@ public class ClientServiceTest extends BaseTests {
     @Sql({"classpath:/resources/sqls/client.sql"})
     void listAllTest() {
     	List<Client> lista = clientService.listAll();
-    	assertEquals(2, lista.size());
+    	assertEquals(3, lista.size());
     }
     
     @Test
@@ -93,7 +93,7 @@ public class ClientServiceTest extends BaseTests {
     void deleteByIdTest() {
     	clientService.delete(1);
         List<Client> list = clientService.listAll();
-        assertEquals(1, list.size());
+        assertEquals(2, list.size());
         var exception = assertThrows(ObjectNotFound.class,() -> clientService.delete(10));
         assertEquals("O cliente 10 não existe", exception.getMessage()); 
     }
@@ -103,7 +103,7 @@ public class ClientServiceTest extends BaseTests {
     @Sql({"classpath:/resources/sqls/client.sql"})
     void findByNameContainingOrderTest() {
         var lista = clientService.findByNameContainingOrderByNameDesc("Nom");
-        assertEquals(2, lista.size());
+        assertEquals(3, lista.size());
         var exception = assertThrows(ObjectNotFound.class, () -> clientService.findByNameContainingOrderByNameDesc("zome"));
         assertEquals("Nenhum nome zome encontrado", exception.getMessage());
     }

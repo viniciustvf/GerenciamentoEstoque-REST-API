@@ -42,13 +42,13 @@ public class OutputResource {
 
 	@PostMapping
 	public ResponseEntity<OutputDTO> insert(@RequestBody OutputDTO output) {
-		Output o = new Output(output, clientService.findById(output.getClientId()), sellerService.findById(output.getSellerId()));
+		Output o = new Output(clientService.findById(output.getClientId()), output, sellerService.findById(output.getSellerId()));
 		return ResponseEntity.ok(service.insert(o).toDTO());
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<OutputDTO> update(@PathVariable Integer id, @RequestBody OutputDTO output) {
-		Output o = new Output(output, clientService.findById(output.getClientId()), sellerService.findById(output.getSellerId()));
+		Output o = new Output(clientService.findById(output.getClientId()), output, sellerService.findById(output.getSellerId()));
 		o.setId(id);
 		return ResponseEntity.ok(service.update(o).toDTO());
 	}

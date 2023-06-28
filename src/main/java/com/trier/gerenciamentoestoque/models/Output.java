@@ -21,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor 
 @EqualsAndHashCode (of = "id")
 @Entity(name = "output")
 public class Output {
@@ -38,7 +38,7 @@ public class Output {
 	@ManyToOne
 	private Seller seller;
 	
-    public Output (OutputDTO dto, Client client, Seller seller) {
+    public Output (Client client, OutputDTO dto, Seller seller) {
 		this(dto.getId(), client, seller); 
 	}
 	

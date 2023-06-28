@@ -6,7 +6,7 @@ public class EnumUtils {
 
 	public static MovementType strMovementTypeToEnum(String movementTypeString) {
 	    for (MovementType type : MovementType.values()) {
-	        if (type.getDescription().equalsIgnoreCase(movementTypeString)) {
+	        if (type.name().equalsIgnoreCase(movementTypeString)) {
 	            return type;
 	        }
 	    }

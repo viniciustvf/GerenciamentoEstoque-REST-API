@@ -34,7 +34,6 @@ public class ProductMovement {
 	private Integer id;
 
 	@Column(name = "quantity_movement")
-	@Size(max = 4)
 	private Integer quantity;
 	
 	@ManyToOne
@@ -48,6 +47,6 @@ public class ProductMovement {
 	}
 	
 	public ProductMovementDTO toDTO() {
-	    return new ProductMovementDTO(getId(), getQuantity(), product.getId(), product.getName(), movement.getId(), movement.getMovementType().getDescription()); 
+	    return new ProductMovementDTO(getId(), getQuantity(), product.getId(), product.getName(), movement.getId(), movement.getMovementType().name()); 
 	}
 }

@@ -33,7 +33,6 @@ public class Product {
 	private String name;
 	
 	@Column(name = "price_product")
-	@Size(max = 7)
 	private Double price;
 	
 	@Column(name = "barcode_product", unique = true)
