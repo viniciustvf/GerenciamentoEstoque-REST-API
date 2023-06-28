@@ -5,6 +5,7 @@ import java.util.List;
 import com.trier.gerenciamentoestoque.models.Movement;
 import com.trier.gerenciamentoestoque.models.Product;
 import com.trier.gerenciamentoestoque.models.ProductMovement;
+import com.trier.gerenciamentoestoque.models.enums.MovementType;
 
 public interface ProductMovementService {
 

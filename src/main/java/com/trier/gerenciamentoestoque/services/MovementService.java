@@ -1,5 +1,6 @@
 package com.trier.gerenciamentoestoque.services;
 
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -20,6 +21,8 @@ public interface MovementService {
 	void delete (Integer id);
 	
 	List<Movement> findByDateTime(ZonedDateTime date);
+	
+	List<Movement> findByDateTimeContainsCurrentDate(ZonedDateTime date);
 	
 	List<Movement> findByEntry(Entry entry);
 	

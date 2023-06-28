@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.trier.gerenciamentoestoque.models.Category;
@@ -25,5 +26,7 @@ public interface  ProductRepository extends JpaRepository<Product, Integer>{
 	List<Product> findByAmountBetween(Integer amountI, Integer amountF);
 	
 	List<Product> findByCategory(Category category);
-
+	
+	@Query(value = "SELECT * FROM product p WHERE p.amount_product = (SELECT MAX(p2.amount_product) FROM product p2) LIMIT 1", nativeQuery = true)
+	Integer findMaxAmount();
 }

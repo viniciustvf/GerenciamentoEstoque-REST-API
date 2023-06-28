@@ -1,5 +1,6 @@
 package com.trier.gerenciamentoestoque.services.impl;
 
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import com.trier.gerenciamentoestoque.repositories.MovementRepository;
 import com.trier.gerenciamentoestoque.services.MovementService;
 import com.trier.gerenciamentoestoque.services.exceptions.IntegrityViolation;
 import com.trier.gerenciamentoestoque.services.exceptions.ObjectNotFound;
+import com.trier.gerenciamentoestoque.utils.DateUtils;
 
 @Service
 public class MovementServiceImpl implements MovementService {
@@ -97,6 +99,15 @@ public class MovementServiceImpl implements MovementService {
 		List<Movement> lista = repository.findByOutput(output);
 		if (lista.isEmpty()) {	
 			throw new ObjectNotFound("Nenhum movimento de saída encontrado para a saída %s".formatted(output.getId()));
+		}
+		return lista;
+	}
+
+	@Override
+	public List<Movement> findByDateTimeContainsCurrentDate(ZonedDateTime date) {
+		List<Movement> lista = repository.findByDateTimeContainsCurrentDate(date);
+		if (lista.isEmpty()) {	
+			throw new ObjectNotFound("Nenhum movimento encontrado para a data %s".formatted(date));
 		}
 		return lista;
 	}

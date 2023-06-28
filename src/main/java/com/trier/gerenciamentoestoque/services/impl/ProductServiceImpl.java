@@ -129,4 +129,14 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return lista;
 	}
+	
+	public Double findTotalValueOfProducts() {
+	    List<Product> lista = repository.findByAmountBetween(1, repository.findMaxAmount());
+	    if (lista.isEmpty()) {
+	        throw new ObjectNotFound("Nenhum produto encontrado");
+	    }
+	    return lista.stream()
+	            .mapToDouble(product -> product.getPrice() * product.getAmount())
+	            .sum();
+	}
 }	

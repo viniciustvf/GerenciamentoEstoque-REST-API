@@ -31,5 +31,7 @@ public interface ProductService {
 	List<Product> findByAmountBetween(Integer amountI, Integer amountF);
 	
 	List<Product> findByCategory(Category category);
+	
+	Double findTotalValueOfProducts();
 
 }

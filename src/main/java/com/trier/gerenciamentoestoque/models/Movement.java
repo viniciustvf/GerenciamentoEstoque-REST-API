@@ -62,7 +62,8 @@ public class Movement {
 		this.entry = entry;
 		this.output = output;
 	}
-	
-	
 
+	public Movement(MovementType type) {
+		this.movementType = type;
+	}
 }
