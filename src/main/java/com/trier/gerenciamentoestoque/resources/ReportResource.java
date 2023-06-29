@@ -52,7 +52,7 @@ public class ReportResource {
 	//TODOS OS PRODUTOS MOVIMENTADOS EM UMA DATA
 	@GetMapping("/products-movement-by-date/{date}")
 	public ResponseEntity<ProductMovementDateDTO> findProductByDate(@PathVariable String date) {
-		List<Movement> movements = movementService.findByDateTimeContainsCurrentDate(DateUtils.strToZonedDate(date));
+		List<Movement> movements = movementService.findByDateTimeContainDate(DateUtils.strToZonedDate(date));
 		List<ProductDTO> products = movements.stream().flatMap(movement -> {
 			try {
 				return productMovementService.findByMovement(movement).stream();

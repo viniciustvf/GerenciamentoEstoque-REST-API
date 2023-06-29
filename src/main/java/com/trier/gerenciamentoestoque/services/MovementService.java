@@ -22,7 +22,7 @@ public interface MovementService {
 	
 	List<Movement> findByDateTime(ZonedDateTime date);
 	
-	List<Movement> findByDateTimeContainsCurrentDate(ZonedDateTime date);
+	List<Movement> findByDateTimeContainDate(ZonedDateTime date);
 	
 	List<Movement> findByEntry(Entry entry);
 	

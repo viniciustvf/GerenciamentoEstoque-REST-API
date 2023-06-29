@@ -19,7 +19,7 @@ public interface MovementRepository extends JpaRepository<Movement, Integer>{
 	List<Movement> findByDateTime(ZonedDateTime date);
 	
 	@Query(value = "SELECT * FROM movement WHERE DATE(datetime_movement) = DATE(:date)", nativeQuery = true)
-	List<Movement> findByDateTimeContainsCurrentDate(@Param("date") ZonedDateTime date);
+	List<Movement> findByDateTimeContainDate(@Param("date") ZonedDateTime date);
 	
 	List<Movement> findByEntry(Entry entry);
 	

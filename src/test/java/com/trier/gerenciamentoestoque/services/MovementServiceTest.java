@@ -194,4 +194,21 @@ public class MovementServiceTest extends BaseTests {
         var exception = assertThrows(ObjectNotFound.class, () -> service.findByOutput(outputService.findById(2)));
         assertEquals("Nenhum movimento de saída encontrado para a saída 2", exception.getMessage());
     }
+    
+    @Test
+    @DisplayName("Teste buscar por data e hora, contendo data")
+	@Sql({"classpath:/resources/sqls/supplier.sql"})
+	@Sql({"classpath:/resources/sqls/entry.sql"})
+	@Sql({"classpath:/resources/sqls/client.sql"})
+	@Sql({"classpath:/resources/sqls/seller.sql"})
+	@Sql({"classpath:/resources/sqls/output.sql"})
+    @Sql({"classpath:/resources/sqls/movement.sql"})
+    void findByDateTimeContainsCurrentDateTest() {
+        var lista = service.findByDateTimeContainDate(ZonedDateTime.of(LocalDateTime.of(2024, 1, 1, 13, 59, 5), ZoneId.of("America/Sao_Paulo")));
+        assertEquals(2, lista.size());
+        var exception = assertThrows(ObjectNotFound.class, () -> service.findByDateTimeContainDate(ZonedDateTime.of(LocalDateTime.of(2029, 1, 1, 13, 59, 5), ZoneId.of("America/Sao_Paulo"))));
+        assertEquals("Nenhum movimento encontrado para a data 2029-01-01T13:59:05-03:00[America/Sao_Paulo]", exception.getMessage());
+    }
+    
+    
 }

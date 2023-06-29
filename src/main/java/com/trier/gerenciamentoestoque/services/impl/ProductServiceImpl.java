@@ -43,8 +43,7 @@ public class ProductServiceImpl implements ProductService {
 	public Product findById(Integer id) {
 		return repository.findById(id).orElseThrow(() -> new ObjectNotFound("O produto %s não existe".formatted(id)));
 	}
-
-	@Override
+ 
 	public Product insert(Product product) {
 		validateProduct(product);
 		return repository.save(product);

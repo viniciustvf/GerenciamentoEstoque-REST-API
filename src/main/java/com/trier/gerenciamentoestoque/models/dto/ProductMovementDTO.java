@@ -13,6 +13,8 @@ public class ProductMovementDTO {
 
 	private Integer quantity;
 	
+	private Double price;
+	
 	private Integer productId;
 	
 	private String productName;

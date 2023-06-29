@@ -28,7 +28,7 @@ public class ProductMovementServiceImpl implements ProductMovementService {
 			throw new IntegrityViolation("Produto não pode ser nulo");
 		}
 		if(productMovement.getQuantity() == null || productMovement.getQuantity() > 100) {
-			throw new IntegrityViolation("Quantidade não pode ser nula e maior que 100");
+			throw new IntegrityViolation("Quantidade não pode ser nula e maior que 100"); 
 		}
 	}
 
@@ -36,8 +36,10 @@ public class ProductMovementServiceImpl implements ProductMovementService {
 		validateProductMovement(productMovement);
 		if(productMovement.getMovement().getMovementType().equals(MovementType.ENTRY)) {
 			productMovement.getProduct().setAmount(productMovement.getProduct().getAmount() + productMovement.getQuantity());
+			productMovement.setPrice(productMovement.getProduct().getPrice());
 		} else {
 			productMovement.getProduct().setAmount(productMovement.getProduct().getAmount() - productMovement.getQuantity());
+			productMovement.setPrice(productMovement.getProduct().getPrice());
 		}
 		return productMovement;
 	}
@@ -102,4 +104,15 @@ public class ProductMovementServiceImpl implements ProductMovementService {
 		}
 		return lista;
 	}
+	
+	@Override
+	public List<ProductMovement> findByPrice(Double price) {
+		List<ProductMovement> lista = repository.findByPrice(price);
+		if (lista.isEmpty()) {	
+			throw new ObjectNotFound("Nenhum produto movimento encontrado com o preço de %s".formatted(price));
+		}
+		return lista;
+	}
+	
+	
 }	

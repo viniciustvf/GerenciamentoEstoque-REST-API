@@ -104,8 +104,8 @@ public class MovementServiceImpl implements MovementService {
 	}
 
 	@Override
-	public List<Movement> findByDateTimeContainsCurrentDate(ZonedDateTime date) {
-		List<Movement> lista = repository.findByDateTimeContainsCurrentDate(date);
+	public List<Movement> findByDateTimeContainDate(ZonedDateTime date) {
+		List<Movement> lista = repository.findByDateTimeContainDate(date);
 		if (lista.isEmpty()) {	
 			throw new ObjectNotFound("Nenhum movimento encontrado para a data %s".formatted(date));
 		}

@@ -25,4 +25,6 @@ public interface ProductMovementService {
 	
 	List<ProductMovement> findByQuantity(Integer quantity);
 	
+	List<ProductMovement> findByPrice(Double price);
+	
 }
