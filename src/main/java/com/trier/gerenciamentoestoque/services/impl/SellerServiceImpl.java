@@ -17,12 +17,12 @@ public class SellerServiceImpl implements SellerService {
 
 	@Autowired
 	private SellerRepository repository;
-	
+
 	private void validateSeller(Seller seller) {
-		if(seller.getName() == null) {
+		if (seller.getName() == null) {
 			throw new IntegrityViolation("O nome do vendedor(a) não pode ser nulo");
 		}
-		if(seller.getRegistration() == null) {
+		if (seller.getRegistration() == null) {
 			throw new IntegrityViolation("A matricula do vendedor náo pode ser nula");
 		}
 	}
@@ -41,7 +41,7 @@ public class SellerServiceImpl implements SellerService {
 	@Override
 	public List<Seller> listAll() {
 		List<Seller> lista = repository.findAll();
-		if ( lista.isEmpty() ) {
+		if (lista.isEmpty()) {
 			throw new ObjectNotFound("Nenhum vendedor cadastrado");
 		}
 		return lista;
@@ -63,7 +63,7 @@ public class SellerServiceImpl implements SellerService {
 	@Override
 	public List<Seller> findByNameStartingWithIgnoreCaseOrderByNameDesc(String name) {
 		List<Seller> lista = repository.findByNameStartingWithIgnoreCaseOrderByNameDesc(name);
-		if ( lista.isEmpty() ) {
+		if (lista.isEmpty()) {
 			throw new ObjectNotFound("Nenhum vendedor com nome %s cadastrado".formatted(name));
 		}
 		return lista;
@@ -71,17 +71,7 @@ public class SellerServiceImpl implements SellerService {
 
 	@Override
 	public Optional<Seller> findByRegistration(String registration) {
-		return Optional.ofNullable(repository.findByRegistration(registration).orElseThrow(() -> new ObjectNotFound("Vendedor não encontrado com a matrícula %s".formatted(registration))));	
+		return Optional.ofNullable(repository.findByRegistration(registration).orElseThrow(
+				() -> new ObjectNotFound("Vendedor não encontrado com a matrícula %s".formatted(registration))));
 	}
 }
-
-
-
-
-
-
-
-
-
-
-

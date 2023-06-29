@@ -190,4 +190,22 @@ public class ProductServiceTest extends BaseTests {
     	var exception = assertThrows(ObjectNotFound.class, () -> service.findByCategory(categoryService.findById(3)));
     	assertEquals("Nenhum produto encontrado para a categoria Categoria 3", exception.getMessage());
     } 
+    
+    @Test
+    @DisplayName("Teste buscar valor total dos produtos")
+    @Sql({"classpath:/resources/sqls/category.sql"})
+    @Sql({"classpath:/resources/sqls/product.sql"})
+    void findByTotalValueTest() {
+    	var lista = service.findTotalValueOfProducts();
+    	assertEquals(3094.0, lista);;
+    } 
+    
+    @Test
+    @DisplayName("Teste buscar valor total dos produtos sem produtos cadastrados")
+    @Sql({"classpath:/resources/sqls/category.sql"})
+    void findByTotalValueWrongTest() {
+    	var exception = assertThrows(ObjectNotFound.class, () -> service.findTotalValueOfProducts());
+    	assertEquals("Nenhum produto encontrado", exception.getMessage());
+    }
+    
 }

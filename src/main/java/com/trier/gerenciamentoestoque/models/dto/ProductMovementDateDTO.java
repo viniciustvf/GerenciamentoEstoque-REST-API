@@ -11,10 +11,10 @@ import lombok.NoArgsConstructor;
 @Getter
 public class ProductMovementDateDTO {
 
-		private String date;
+	private String date;
 		
-		private Integer productSize;
+	private Integer productSize;
 		
-		private List<ProductDTO> products;
+	private List<ProductDTO> products;
 	
 }

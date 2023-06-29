@@ -41,7 +41,7 @@ public class Product {
 	@Column(name = "amount_product")
 	private Integer amount;
 	
-	@ManyToOne
+	@ManyToOne 
 	private Category category;
 	
 	public Product (ProductDTO dto, Category category) {

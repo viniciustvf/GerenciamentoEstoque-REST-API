@@ -17,23 +17,23 @@ public class ClientServiceImpl implements ClientService {
 
 	@Autowired
 	private ClientRepository repository;
-	
+
 	private void validateClient(Client client) {
-		if(client.getAge() == null) {
+		if (client.getAge() == null) {
 			throw new IntegrityViolation("Idade não pode ser nula");
 		}
-		if(client.getCpf() == null) {
+		if (client.getCpf() == null) {
 			throw new IntegrityViolation("CPF não pode ser nulo");
 		}
-		if(client.getName() == null) {
+		if (client.getName() == null) {
 			throw new IntegrityViolation("Nome não pode ser nulo");
 		}
-		if(client.getNumber() == null || String.valueOf(client.getNumber()).length() > 11 ) {
+		if (client.getNumber() == null || String.valueOf(client.getNumber()).length() > 11) {
 			throw new IntegrityViolation("Número inválido");
 		}
 	}
 
-	@Override 
+	@Override
 	public Client findById(Integer id) {
 		return repository.findById(id).orElseThrow(() -> new ObjectNotFound("O cliente %s não existe".formatted(id)));
 	}
@@ -47,7 +47,7 @@ public class ClientServiceImpl implements ClientService {
 	@Override
 	public List<Client> listAll() {
 		List<Client> lista = repository.findAll();
-		if ( lista.isEmpty() ) {
+		if (lista.isEmpty()) {
 			throw new ObjectNotFound("Nenhum cliente cadastrado");
 		}
 		return lista;
@@ -69,7 +69,7 @@ public class ClientServiceImpl implements ClientService {
 	@Override
 	public List<Client> findByNameContainingOrderByNameDesc(String name) {
 		List<Client> lista = repository.findByNameContainingOrderByNameDesc(name);
-		if (lista.isEmpty()) {	
+		if (lista.isEmpty()) {
 			throw new ObjectNotFound("Nenhum nome %s encontrado".formatted(name));
 		}
 		return lista;
@@ -77,13 +77,14 @@ public class ClientServiceImpl implements ClientService {
 
 	@Override
 	public Optional<Client> findByCpf(String cpf) {
-		return Optional.ofNullable(repository.findByCpf(cpf).orElseThrow(() -> new ObjectNotFound("Cliente não encontrado com CPF %s".formatted(cpf))));
+		return Optional.ofNullable(repository.findByCpf(cpf)
+				.orElseThrow(() -> new ObjectNotFound("Cliente não encontrado com CPF %s".formatted(cpf))));
 	}
 
 	@Override
 	public List<Client> findByAge(Integer age) {
 		List<Client> lista = repository.findByAge(age);
-		if (lista.isEmpty()) {	
+		if (lista.isEmpty()) {
 			throw new ObjectNotFound("Nenhum cliente encontrado com %s anos".formatted(age));
 		}
 		return lista;
@@ -92,7 +93,7 @@ public class ClientServiceImpl implements ClientService {
 	@Override
 	public List<Client> findByAgeBetween(Integer ageI, Integer ageF) {
 		List<Client> lista = repository.findByAgeBetween(ageI, ageF);
-		if (lista.isEmpty()) {	
+		if (lista.isEmpty()) {
 			throw new ObjectNotFound("Nenhum cliente encontrado com idades entre %s e %s anos".formatted(ageI, ageF));
 		}
 		return lista;
@@ -100,7 +101,8 @@ public class ClientServiceImpl implements ClientService {
 
 	@Override
 	public Optional<Client> findByNumber(Long number) {
-		return Optional.ofNullable(repository.findByNumber(number).orElseThrow(() -> new ObjectNotFound("Cliente não encontrado com numero %s".formatted(number))));
+		return Optional.ofNullable(repository.findByNumber(number)
+				.orElseThrow(() -> new ObjectNotFound("Cliente não encontrado com numero %s".formatted(number))));
 	}
-	
-}	
+
+}

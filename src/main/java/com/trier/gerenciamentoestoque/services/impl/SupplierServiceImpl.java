@@ -17,19 +17,20 @@ public class SupplierServiceImpl implements SupplierService {
 
 	@Autowired
 	private SupplierRepository repository;
-	
+
 	private void validateSupplier(Supplier supplier) {
-		if(supplier.getName() == null) {
+		if (supplier.getName() == null) {
 			throw new IntegrityViolation("O nome do fornecedor(a) não pode ser nulo");
 		}
-		if(supplier.getCnpj() == null) {
+		if (supplier.getCnpj() == null) {
 			throw new IntegrityViolation("O CNPJ do fornecedor não pode ser nulo");
 		}
 	}
 
 	@Override
 	public Supplier findById(Integer id) {
-		return repository.findById(id).orElseThrow(() -> new ObjectNotFound("O fornecedor %s não existe".formatted(id)));
+		return repository.findById(id)
+				.orElseThrow(() -> new ObjectNotFound("O fornecedor %s não existe".formatted(id)));
 	}
 
 	@Override
@@ -41,7 +42,7 @@ public class SupplierServiceImpl implements SupplierService {
 	@Override
 	public List<Supplier> listAll() {
 		List<Supplier> lista = repository.findAll();
-		if ( lista.isEmpty() ) {
+		if (lista.isEmpty()) {
 			throw new ObjectNotFound("Nenhum fornecedor cadastrado");
 		}
 		return lista;
@@ -63,7 +64,7 @@ public class SupplierServiceImpl implements SupplierService {
 	@Override
 	public List<Supplier> findByNameStartingWithIgnoreCaseOrderByNameDesc(String name) {
 		List<Supplier> lista = repository.findByNameStartingWithIgnoreCaseOrderByNameDesc(name);
-		if ( lista.isEmpty() ) {
+		if (lista.isEmpty()) {
 			throw new ObjectNotFound("Nenhum fornecedor cadastrado com o nome %s".formatted(name));
 		}
 		return lista;
@@ -71,17 +72,7 @@ public class SupplierServiceImpl implements SupplierService {
 
 	@Override
 	public Optional<Supplier> findByCnpj(String cnpj) {
-		return Optional.ofNullable(repository.findByCnpj(cnpj).orElseThrow(() -> new ObjectNotFound("Fornecedor não encontrado com o CNPJ %s".formatted(cnpj))));	
+		return Optional.ofNullable(repository.findByCnpj(cnpj)
+				.orElseThrow(() -> new ObjectNotFound("Fornecedor não encontrado com o CNPJ %s".formatted(cnpj))));
 	}
 }
-
-
-
-
-
-
-
-
-
-
-

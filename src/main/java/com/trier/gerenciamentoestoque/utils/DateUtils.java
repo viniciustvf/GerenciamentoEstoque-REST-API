@@ -9,26 +9,40 @@ import java.time.format.DateTimeFormatter;
 
 public class DateUtils {
 
-    private static DateTimeFormatter dtfBR = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-    
-    private static DateTimeFormatter dtfBR2 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-	
-    public static ZonedDateTime strToZonedDateTime(String dateStr) {
-        LocalDateTime localDateTime = LocalDateTime.parse(dateStr, dtfBR);
-        return localDateTime.atZone(ZoneId.systemDefault());
-    }
-    
-    public static ZonedDateTime strToZonedDate(String dateStr) {
-        LocalDate localDate = LocalDate.parse(dateStr, dtfBR2);
-        return ZonedDateTime.of(localDate, LocalTime.MIDNIGHT, ZoneId.systemDefault());
-    }
-	
+	private static DateTimeFormatter dtfBR = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
+	private static DateTimeFormatter dtfBR2 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+	public static ZonedDateTime strToZonedDateTime(String dateStr) {
+		LocalDateTime localDateTime = LocalDateTime.parse(dateStr, dtfBR);
+		return localDateTime.atZone(ZoneId.systemDefault());
+	}
+
+	public static ZonedDateTime zonedDateTime0000(ZonedDateTime date) {
+		LocalDate localDate = date.toLocalDate();
+		LocalTime midnight = LocalTime.MIDNIGHT;
+		ZoneId zone = date.getZone();
+		return ZonedDateTime.of(localDate, midnight, zone);
+	}
+
+	public static ZonedDateTime zonedDateTime2359(ZonedDateTime date) {
+		LocalDate localDate = date.toLocalDate();
+		LocalTime midnight = LocalTime.of(23, 59);
+		ZoneId zone = date.getZone();
+		return ZonedDateTime.of(localDate, midnight, zone);
+	}
+
+	public static ZonedDateTime strToZonedDate(String dateStr) {
+		LocalDate localDate = LocalDate.parse(dateStr, dtfBR2);
+		return ZonedDateTime.of(localDate, LocalTime.MIDNIGHT, ZoneId.systemDefault());
+	}
+
 	public static String zonedDateTimeToStr(ZonedDateTime date) {
 		return dtfBR.format(date);
 	}
-	
+
 	public static LocalDate strToLocalDate(String dateStr) {
-        LocalDateTime localDateTime = LocalDateTime.parse(dateStr, dtfBR);
-        return localDateTime.toLocalDate();
-    }
+		LocalDateTime localDateTime = LocalDateTime.parse(dateStr, dtfBR);
+		return localDateTime.toLocalDate();
+	}
 }

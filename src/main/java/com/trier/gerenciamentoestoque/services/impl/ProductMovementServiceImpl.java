@@ -19,35 +19,37 @@ public class ProductMovementServiceImpl implements ProductMovementService {
 
 	@Autowired
 	private ProductMovementRepository repository;
-	
+
 	private void validateProductMovement(ProductMovement productMovement) {
-		if(productMovement.getMovement() == null) {
+		if (productMovement.getMovement() == null) {
 			throw new IntegrityViolation("Movimento não pode ser nulo");
-		} 
-		if(productMovement.getProduct() == null) {
+		}
+		if (productMovement.getProduct() == null) {
 			throw new IntegrityViolation("Produto não pode ser nulo");
 		}
-		if(productMovement.getQuantity() == null || productMovement.getQuantity() > 100) {
-			throw new IntegrityViolation("Quantidade não pode ser nula e maior que 100"); 
+		if (productMovement.getQuantity() == null || productMovement.getQuantity() > 100) {
+			throw new IntegrityViolation("Quantidade não pode ser nula e maior que 100");
 		}
 	}
 
 	private ProductMovement determineEntryOutput(ProductMovement productMovement) {
 		validateProductMovement(productMovement);
-		if(productMovement.getMovement().getMovementType().equals(MovementType.ENTRY)) {
-			productMovement.getProduct().setAmount(productMovement.getProduct().getAmount() + productMovement.getQuantity());
+		if (productMovement.getMovement().getMovementType().equals(MovementType.ENTRY)) {
+			productMovement.getProduct()
+					.setAmount(productMovement.getProduct().getAmount() + productMovement.getQuantity());
 			productMovement.setPrice(productMovement.getProduct().getPrice());
 		} else {
-			productMovement.getProduct().setAmount(productMovement.getProduct().getAmount() - productMovement.getQuantity());
+			productMovement.getProduct()
+					.setAmount(productMovement.getProduct().getAmount() - productMovement.getQuantity());
 			productMovement.setPrice(productMovement.getProduct().getPrice());
 		}
 		return productMovement;
 	}
-	
-	
+
 	@Override
 	public ProductMovement findById(Integer id) {
-		return repository.findById(id).orElseThrow(() -> new ObjectNotFound("O produto movimento %s não existe".formatted(id)));
+		return repository.findById(id)
+				.orElseThrow(() -> new ObjectNotFound("O produto movimento %s não existe".formatted(id)));
 	}
 
 	@Override
@@ -59,7 +61,7 @@ public class ProductMovementServiceImpl implements ProductMovementService {
 	@Override
 	public List<ProductMovement> listAll() {
 		List<ProductMovement> lista = repository.findAll();
-		if ( lista.isEmpty() ) {
+		if (lista.isEmpty()) {
 			throw new ObjectNotFound("Nenhum produto movimento cadastrado");
 		}
 		return lista;
@@ -81,8 +83,9 @@ public class ProductMovementServiceImpl implements ProductMovementService {
 	@Override
 	public List<ProductMovement> findByProduct(Product product) {
 		List<ProductMovement> lista = repository.findByProduct(product);
-		if (lista.isEmpty()) {	
-			throw new ObjectNotFound("Nenhum produto movimento encontrado para o produto %s".formatted(product.getName()));
+		if (lista.isEmpty()) {
+			throw new ObjectNotFound(
+					"Nenhum produto movimento encontrado para o produto %s".formatted(product.getName()));
 		}
 		return lista;
 	}
@@ -90,7 +93,7 @@ public class ProductMovementServiceImpl implements ProductMovementService {
 	@Override
 	public List<ProductMovement> findByMovement(Movement movement) {
 		List<ProductMovement> lista = repository.findByMovement(movement);
-		if (lista.isEmpty()) {	
+		if (lista.isEmpty()) {
 			throw new ObjectNotFound("Nenhum movimento com id %s encontrado".formatted(movement.getId()));
 		}
 		return lista;
@@ -99,20 +102,20 @@ public class ProductMovementServiceImpl implements ProductMovementService {
 	@Override
 	public List<ProductMovement> findByQuantity(Integer quantity) {
 		List<ProductMovement> lista = repository.findByQuantity(quantity);
-		if (lista.isEmpty()) {	
-			throw new ObjectNotFound("Nenhum produto movimento encontrado com a quantidade de %s produtos".formatted(quantity));
+		if (lista.isEmpty()) {
+			throw new ObjectNotFound(
+					"Nenhum produto movimento encontrado com a quantidade de %s produtos".formatted(quantity));
 		}
 		return lista;
 	}
-	
+
 	@Override
 	public List<ProductMovement> findByPrice(Double price) {
 		List<ProductMovement> lista = repository.findByPrice(price);
-		if (lista.isEmpty()) {	
+		if (lista.isEmpty()) {
 			throw new ObjectNotFound("Nenhum produto movimento encontrado com o preço de %s".formatted(price));
 		}
 		return lista;
 	}
-	
-	
-}	
+
+}

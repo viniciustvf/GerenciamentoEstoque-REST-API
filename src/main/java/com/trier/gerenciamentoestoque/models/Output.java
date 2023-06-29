@@ -1,10 +1,6 @@
 package com.trier.gerenciamentoestoque.models;
 
-
-import com.trier.gerenciamentoestoque.models.dto.MovementDTO;
 import com.trier.gerenciamentoestoque.models.dto.OutputDTO;
-import com.trier.gerenciamentoestoque.utils.DateUtils;
-import com.trier.gerenciamentoestoque.utils.EnumUtils;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,8 +17,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor 
-@EqualsAndHashCode (of = "id")
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 @Entity(name = "output")
 public class Output {
 
@@ -31,19 +27,19 @@ public class Output {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_output")
 	private Integer id;
-	
+
 	@ManyToOne
 	private Client client;
-	
+
 	@ManyToOne
 	private Seller seller;
-	
-    public Output (Client client, OutputDTO dto, Seller seller) {
-		this(dto.getId(), client, seller); 
+
+	public Output(Client client, OutputDTO dto, Seller seller) {
+		this(dto.getId(), client, seller);
 	}
-	
+
 	public OutputDTO toDTO() {
-	    return new OutputDTO(getId(), client.getId(), client.getName(), seller.getId(), seller.getName()); 
+		return new OutputDTO(getId(), client.getId(), client.getName(), seller.getId(), seller.getName());
 	}
-	
+
 }

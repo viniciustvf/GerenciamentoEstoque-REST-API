@@ -11,16 +11,14 @@ import com.trier.gerenciamentoestoque.services.CategoryService;
 import com.trier.gerenciamentoestoque.services.exceptions.IntegrityViolation;
 import com.trier.gerenciamentoestoque.services.exceptions.ObjectNotFound;
 
-
-
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
 	private CategoryRepository repository;
-	
+
 	private void validateCategory(Category category) {
-		if(category.getDescription() == null) {
+		if (category.getDescription() == null) {
 			throw new IntegrityViolation("Descrição da categoria não pode ser nula");
 		}
 	}
@@ -39,7 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public List<Category> listAll() {
 		List<Category> lista = repository.findAll();
-		if ( lista.isEmpty() ) {
+		if (lista.isEmpty()) {
 			throw new ObjectNotFound("Nenhuma categoria cadastrada");
 		}
 		return lista;
@@ -61,7 +59,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public List<Category> findByDescriptionStartingWithIgnoreCase(String description) {
 		List<Category> lista = repository.findByDescriptionStartingWithIgnoreCase(description);
-		if ( lista.isEmpty() ) {
+		if (lista.isEmpty()) {
 			throw new ObjectNotFound("Nenhuma categoria cadastrada com a descrição %s".formatted(description));
 		}
 		return lista;
@@ -70,7 +68,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public List<Category> findByDescriptionContainingOrderByDescriptionDesc(String description) {
 		List<Category> lista = repository.findByDescriptionStartingWithIgnoreCase(description);
-		if ( lista.isEmpty() ) {
+		if (lista.isEmpty()) {
 			throw new ObjectNotFound("Nenhuma categoria cadastrada com a descrição %s".formatted(description));
 		}
 		return lista;

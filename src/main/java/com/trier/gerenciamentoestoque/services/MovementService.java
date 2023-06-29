@@ -1,6 +1,5 @@
 package com.trier.gerenciamentoestoque.services;
 
-import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -11,21 +10,21 @@ import com.trier.gerenciamentoestoque.models.Output;
 public interface MovementService {
 
 	Movement findById(Integer id);
-	
+
 	Movement insert(Movement movement);
-	
+
 	List<Movement> listAll();
-	
-	Movement update (Movement movement);
-	
-	void delete (Integer id);
-	
+
+	Movement update(Movement movement);
+
+	void delete(Integer id);
+
 	List<Movement> findByDateTime(ZonedDateTime date);
-	
-	List<Movement> findByDateTimeContainDate(ZonedDateTime date);
-	
+
+	List<Movement> findByDateTimeContainsDate(ZonedDateTime date);
+
 	List<Movement> findByEntry(Entry entry);
-	
+
 	List<Movement> findByOutput(Output output);
-	
+
 }

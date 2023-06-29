@@ -18,5 +18,5 @@ public class MovementDTO {
 	private Integer entryId;
 	
 	private Integer outputId;
-	
+
 }

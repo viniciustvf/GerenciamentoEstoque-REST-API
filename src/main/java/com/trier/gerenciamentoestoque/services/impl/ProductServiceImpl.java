@@ -20,21 +20,21 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductRepository repository;
-	
+
 	private void validateProduct(Product product) {
-		if(product.getAmount() == null) {
+		if (product.getAmount() == null) {
 			throw new IntegrityViolation("A quantidade não pode ser nula");
 		}
-		if(product.getBarcode() == null) {
+		if (product.getBarcode() == null) {
 			throw new IntegrityViolation("O codigo de barras não pode ser nulo");
 		}
-		if(product.getCategory() == null) {
+		if (product.getCategory() == null) {
 			throw new IntegrityViolation("A categoria não pode ser nula");
 		}
-		if(product.getName() == null) {
+		if (product.getName() == null) {
 			throw new IntegrityViolation("O nome não pode ser nulo");
 		}
-		if(product.getPrice() == null) {
+		if (product.getPrice() == null) {
 			throw new IntegrityViolation("O preço não pode ser nulo");
 		}
 	}
@@ -43,7 +43,7 @@ public class ProductServiceImpl implements ProductService {
 	public Product findById(Integer id) {
 		return repository.findById(id).orElseThrow(() -> new ObjectNotFound("O produto %s não existe".formatted(id)));
 	}
- 
+
 	public Product insert(Product product) {
 		validateProduct(product);
 		return repository.save(product);
@@ -52,7 +52,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> listAll() {
 		List<Product> lista = repository.findAll();
-		if ( lista.isEmpty() ) {
+		if (lista.isEmpty()) {
 			throw new ObjectNotFound("Nenhum produto cadastrado");
 		}
 		return lista;
@@ -74,7 +74,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> findByNameStartingWithIgnoreCaseOrderByNameDesc(String name) {
 		List<Product> lista = repository.findByNameStartingWithIgnoreCaseOrderByNameDesc(name);
-		if (lista.isEmpty()) {	
+		if (lista.isEmpty()) {
 			throw new ObjectNotFound("Nenhum produto encontrado com o nome %s".formatted(name));
 		}
 		return lista;
@@ -83,7 +83,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> findByPrice(Double price) {
 		List<Product> lista = repository.findByPrice(price);
-		if (lista.isEmpty()) {	
+		if (lista.isEmpty()) {
 			throw new ObjectNotFound("Nenhum produto encontrado com o preço %s".formatted(price));
 		}
 		return lista;
@@ -92,7 +92,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> findByPriceBetween(Double priceI, Double priceF) {
 		List<Product> lista = repository.findByPriceBetween(priceI, priceF);
-		if (lista.isEmpty()) {	
+		if (lista.isEmpty()) {
 			throw new ObjectNotFound("Nenhum produto encontrado entre R$%s e R$%s".formatted(priceI, priceF));
 		}
 		return lista;
@@ -100,12 +100,14 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Optional<Product> findByBarcode(Integer barcode) {
-		return Optional.ofNullable(repository.findByBarcode(barcode).orElseThrow(() -> new ObjectNotFound("Produto não encontrado com código de barras %s".formatted(barcode))));	}
+		return Optional.ofNullable(repository.findByBarcode(barcode).orElseThrow(
+				() -> new ObjectNotFound("Produto não encontrado com código de barras %s".formatted(barcode))));
+	}
 
 	@Override
 	public List<Product> findByAmount(Integer amount) {
 		List<Product> lista = repository.findByAmount(amount);
-		if (lista.isEmpty()) {	
+		if (lista.isEmpty()) {
 			throw new ObjectNotFound("Nenhum produto encontrado com estoque de %s".formatted(amount));
 		}
 		return lista;
@@ -114,7 +116,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> findByAmountBetween(Integer amountI, Integer amountF) {
 		List<Product> lista = repository.findByAmountBetween(amountI, amountF);
-		if (lista.isEmpty()) {	
+		if (lista.isEmpty()) {
 			throw new ObjectNotFound("Nenhum produto encontrado com estoque entre %s e %s".formatted(amountI, amountF));
 		}
 		return lista;
@@ -123,19 +125,18 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> findByCategory(Category category) {
 		List<Product> lista = repository.findByCategory(category);
-		if (lista.isEmpty()) {	
-			throw new ObjectNotFound("Nenhum produto encontrado para a categoria %s".formatted(category.getDescription()));
+		if (lista.isEmpty()) {
+			throw new ObjectNotFound(
+					"Nenhum produto encontrado para a categoria %s".formatted(category.getDescription()));
 		}
 		return lista;
 	}
-	
+
 	public Double findTotalValueOfProducts() {
-	    List<Product> lista = repository.findByAmountBetween(1, repository.findMaxAmount());
-	    if (lista.isEmpty()) {
-	        throw new ObjectNotFound("Nenhum produto encontrado");
-	    }
-	    return lista.stream()
-	            .mapToDouble(product -> product.getPrice() * product.getAmount())
-	            .sum();
+		List<Product> lista = repository.findByAmountBetween(1, repository.findMaxAmount());
+		if (lista.isEmpty()) {
+			throw new ObjectNotFound("Nenhum produto encontrado");
+		}
+		return lista.stream().mapToDouble(product -> product.getPrice() * product.getAmount()).sum();
 	}
-}	
+}

@@ -18,18 +18,21 @@ public class OutputServiceImpl implements OutputService {
 
 	@Autowired
 	private OutputRepository repository;
-	
+
 	private void validateOutput(Output output) {
-		if(output.getClient() == null) {
+		if (output.getClient() == null) {
 			throw new IntegrityViolation("Cliente não pode ser nulo");
 		}
-		if(output.getSeller() == null) {
+		if (output.getSeller() == null) {
 			throw new IntegrityViolation("Vendedor não pode ser nulo");
 		}
 	}
 
 	@Override
 	public Output findById(Integer id) {
+		if (id == 0) {
+			return null;
+		}
 		return repository.findById(id).orElseThrow(() -> new ObjectNotFound("A saída %s não existe".formatted(id)));
 	}
 
@@ -42,7 +45,7 @@ public class OutputServiceImpl implements OutputService {
 	@Override
 	public List<Output> listAll() {
 		List<Output> lista = repository.findAll();
-		if ( lista.isEmpty() ) {
+		if (lista.isEmpty()) {
 			throw new ObjectNotFound("Nenhuma saída cadastrada");
 		}
 		return lista;
@@ -50,7 +53,6 @@ public class OutputServiceImpl implements OutputService {
 
 	@Override
 	public Output update(Output output) {
-		findById(output.getId());
 		validateOutput(output);
 		return repository.save(output);
 	}
@@ -64,7 +66,7 @@ public class OutputServiceImpl implements OutputService {
 	@Override
 	public List<Output> findByClient(Client client) {
 		List<Output> lista = repository.findByClient(client);
-		if (lista.isEmpty()) {	
+		if (lista.isEmpty()) {
 			throw new ObjectNotFound("Nenhuma saída encontrada para o cliente %s".formatted(client.getName()));
 		}
 		return lista;
@@ -73,9 +75,10 @@ public class OutputServiceImpl implements OutputService {
 	@Override
 	public List<Output> findBySeller(Seller seller) {
 		List<Output> lista = repository.findBySeller(seller);
-		if (lista.isEmpty()) {	
-			throw new ObjectNotFound("Nenhuma saída encontrada para o vendedor %s (%s)".formatted(seller.getName(), seller.getRegistration()));
+		if (lista.isEmpty()) {
+			throw new ObjectNotFound("Nenhuma saída encontrada para o vendedor %s (%s)".formatted(seller.getName(),
+					seller.getRegistration()));
 		}
 		return lista;
 	}
-}	
+}

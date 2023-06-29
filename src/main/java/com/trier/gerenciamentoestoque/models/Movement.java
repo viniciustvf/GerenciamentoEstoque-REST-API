@@ -47,17 +47,22 @@ public class Movement {
 	private Output output;
 
     public Movement (MovementDTO dto, Entry entry, Output output) {
-		this(dto.getId(), DateUtils.strToZonedDateTime(dto.getDateTime()), entry, output); 
-	}
+    	this(dto.getId(), DateUtils.strToZonedDateTime(dto.getDateTime()), entry, output);
+	} 
 	
 	public MovementDTO toDTO() {
-	    return new MovementDTO(getId(), DateUtils.zonedDateTimeToStr(dateTime), movementType.name(), entry.getId(), output.getId()); 
+	    if (entry == null) {
+	    	return new MovementDTO(getId(), DateUtils.zonedDateTimeToStr(dateTime), movementType.name(), 0, output.getId()); 
+	    } else if (output == null) {
+	    	return new MovementDTO(getId(), DateUtils.zonedDateTimeToStr(dateTime), movementType.name(), entry.getId(), 0); 
+	    }
+		return null;
 	}
 
 	public Movement(Integer id, ZonedDateTime dateTime, Entry entry, Output output) {
 		this.id = id;
 		this.dateTime = dateTime;
-		this.entry = entry;
+		this.entry = entry; 
 		this.output = output;
 	}
 

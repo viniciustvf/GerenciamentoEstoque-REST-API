@@ -17,31 +17,34 @@ public class EntryServiceImpl implements EntryService {
 
 	@Autowired
 	private EntryRepository repository;
-	
+
 	private void validateEntry(Entry entry) {
-		if(entry.getCodStock() == null) {
+		if (entry.getCodStock() == null) {
 			throw new IntegrityViolation("Código do estoque não pode ser nulo");
 		}
-		if(entry.getSupplier() == null) {
+		if (entry.getSupplier() == null) {
 			throw new IntegrityViolation("Fornecedor não pode ser nulo");
 		}
 	}
 
 	@Override
 	public Entry findById(Integer id) {
+		if (id == 0) {
+			return null;
+		}
 		return repository.findById(id).orElseThrow(() -> new ObjectNotFound("A entrada %s não existe".formatted(id)));
 	}
 
 	@Override
 	public Entry insert(Entry entry) {
 		validateEntry(entry);
-		return repository.save(entry); 
+		return repository.save(entry);
 	}
 
 	@Override
 	public List<Entry> listAll() {
 		List<Entry> lista = repository.findAll();
-		if ( lista.isEmpty() ) {
+		if (lista.isEmpty()) {
 			throw new ObjectNotFound("Nenhuma entrada cadastrada");
 		}
 		return lista;
@@ -49,7 +52,6 @@ public class EntryServiceImpl implements EntryService {
 
 	@Override
 	public Entry update(Entry entry) {
-		findById(entry.getId());
 		validateEntry(entry);
 		return repository.save(entry);
 	}
@@ -63,7 +65,7 @@ public class EntryServiceImpl implements EntryService {
 	@Override
 	public List<Entry> findByCodStock(Integer codStock) {
 		List<Entry> lista = repository.findByCodStock(codStock);
-		if (lista.isEmpty()) {	
+		if (lista.isEmpty()) {
 			throw new ObjectNotFound("Nenhum estoque encontrado com código %s".formatted(codStock));
 		}
 		return lista;
@@ -72,9 +74,9 @@ public class EntryServiceImpl implements EntryService {
 	@Override
 	public List<Entry> findBySupplier(Supplier supplier) {
 		List<Entry> lista = repository.findBySupplier(supplier);
-		if (lista.isEmpty()) {	
+		if (lista.isEmpty()) {
 			throw new ObjectNotFound("Nenhum fornecedor %s encontrado".formatted(supplier.getId()));
 		}
 		return lista;
 	}
-}	
+}
