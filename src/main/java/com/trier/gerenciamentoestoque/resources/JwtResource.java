@@ -24,13 +24,13 @@ public class JwtResource {
 	private AuthenticationManager auth;
 
 	@PostMapping("/token")
-	public String authenticateAndGetToken(@RequestBody LoginDTO loginDto) {
+	public String authenticateAndGetToken(@RequestBody LoginDTO loginDto) { 
 		Authentication authentication = auth
 				.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()));
 		if (authentication.isAuthenticated()) {
 			return jwtUtil.generateToken(loginDto.getEmail());
 		} else {
-			throw new UsernameNotFoundException("Usuário inválido");
+			throw new UsernameNotFoundException("Usuário inválido"); 
 		}
 	}
 }

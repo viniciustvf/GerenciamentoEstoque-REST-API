@@ -21,7 +21,7 @@ public class JwtUtil {
 	public static final String SECRET = "oratoroeuaroupadoreideromaarainhamatouorato";
 
 	public String extractUsername(String token) {
-		return extractClaim(token, Claims::getSubject);
+		return extractClaim(token, Claims::getSubject); 
 	}
 
 	public Date extractExpiration(String token) {

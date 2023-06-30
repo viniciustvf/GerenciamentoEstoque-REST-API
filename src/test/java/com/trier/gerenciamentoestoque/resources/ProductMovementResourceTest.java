@@ -2,6 +2,8 @@ package com.trier.gerenciamentoestoque.resources;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.List;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +23,12 @@ import org.springframework.test.context.jdbc.Sql;
 
 import com.trier.gerenciamentoestoque.GerenciamentoEstoqueApplication;
 import com.trier.gerenciamentoestoque.config.jwt.LoginDTO;
-import com.trier.gerenciamentoestoque.models.dto.ClientsOfSellerDTO;
-import com.trier.gerenciamentoestoque.models.dto.ProductMovementDateDTO;
+import com.trier.gerenciamentoestoque.models.dto.ProductMovementDTO;
 
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = Replace.ANY)
 @SpringBootTest(classes = GerenciamentoEstoqueApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ReportResourceTest {
+public class ProductMovementResourceTest {
 
 	@Autowired
 	protected TestRestTemplate rest;
@@ -49,36 +50,25 @@ public class ReportResourceTest {
 	    return headersRet;
 	}
 	
-	@Test
-	@DisplayName("Teste buscar produtos movimentados por data")
-	@Sql({"classpath:/resources/sqls/clean_tables.sql"})
-    @Sql({"classpath:/resources/sqls/category.sql"})
-    @Sql({"classpath:/resources/sqls/product.sql"})
-    @Sql({"classpath:/resources/sqls/supplier.sql"})
-    @Sql({"classpath:/resources/sqls/entry.sql"})
-    @Sql({"classpath:/resources/sqls/client.sql"})
-    @Sql({"classpath:/resources/sqls/seller.sql"})
-    @Sql({"classpath:/resources/sqls/output.sql"})
-    @Sql({"classpath:/resources/sqls/movement.sql"})
-	@Sql({"classpath:/resources/sqls/productMovement.sql"})
-	@Sql({"classpath:/resources/sqls/user.sql"})
-	public void findProductByDateTest() {
-		HttpHeaders headers = getHeaders("Email 1", "Senha 1");
-		HttpEntity<ProductMovementDateDTO> requestEntity = new HttpEntity<>(headers);
-		ResponseEntity<ProductMovementDateDTO> response = rest.exchange(
-	            "/reports/products-movement-by-date/01-01-2024",
-	            HttpMethod.GET,
-	            requestEntity,
-	            new ParameterizedTypeReference<ProductMovementDateDTO>() {}
-	        );
-	    assertEquals(HttpStatus.OK, response.getStatusCode());
-	    ProductMovementDateDTO pm = response.getBody();
-	    assertEquals(1, pm.getProductSize());
-	    
+	private ResponseEntity<ProductMovementDTO> getProductMovement(String url) {
+		return rest.exchange(url, 
+				HttpMethod.GET, 
+				new HttpEntity<>(getHeaders("Email 1", "Senha 1")), 
+				ProductMovementDTO.class
+			);
+	}
+
+	private ResponseEntity<List<ProductMovementDTO>> getProductMovements(String url) {
+	    return rest.exchange(
+	        url,
+	        HttpMethod.GET,
+	        new HttpEntity<>(getHeaders("Email 1", "Senha 1")),
+	        new ParameterizedTypeReference<List<ProductMovementDTO>>() {}
+	    );
 	}
 	
 	@Test
-	@DisplayName("Teste buscar clientes de um vendedor")
+	@DisplayName("Buscar por id")
 	@Sql({"classpath:/resources/sqls/clean_tables.sql"})
     @Sql({"classpath:/resources/sqls/category.sql"})
     @Sql({"classpath:/resources/sqls/product.sql"})
@@ -90,23 +80,20 @@ public class ReportResourceTest {
     @Sql({"classpath:/resources/sqls/movement.sql"})
 	@Sql({"classpath:/resources/sqls/productMovement.sql"})
 	@Sql({"classpath:/resources/sqls/user.sql"})
-	public void findClientsOfSellerTest() {
-		HttpHeaders headers = getHeaders("Email 1", "Senha 1");
-		HttpEntity<ClientsOfSellerDTO> requestEntity = new HttpEntity<>(headers);
-		ResponseEntity<ClientsOfSellerDTO> response = rest.exchange(
-	            "/reports/clients-of-seller/1",
-	            HttpMethod.GET,
-	            requestEntity,
-	            new ParameterizedTypeReference<ClientsOfSellerDTO>() {}
-	        );
-	    assertEquals(HttpStatus.OK, response.getStatusCode());
-	    ClientsOfSellerDTO cs = response.getBody();
-	    assertEquals(1, cs.getClientsSize());
-	    
+	public void findByIdTest() {
+		ResponseEntity<ProductMovementDTO> response = getProductMovement("/productMovement/1");
+		assertEquals(response.getStatusCode(), HttpStatus.OK);
+		ProductMovementDTO pm = response.getBody();
+		assertEquals(1, pm.getMovementId());
 	}
 	
+	
+	
+	
+	
+	
 	@Test
-	@DisplayName("Teste buscar clientes de um vendedor")
+	@DisplayName("Inserir time")
 	@Sql({"classpath:/resources/sqls/clean_tables.sql"})
     @Sql({"classpath:/resources/sqls/category.sql"})
     @Sql({"classpath:/resources/sqls/product.sql"})
@@ -116,19 +103,31 @@ public class ReportResourceTest {
     @Sql({"classpath:/resources/sqls/seller.sql"})
     @Sql({"classpath:/resources/sqls/output.sql"})
     @Sql({"classpath:/resources/sqls/movement.sql"})
-	@Sql({"classpath:/resources/sqls/productMovement.sql"})
 	@Sql({"classpath:/resources/sqls/user.sql"})
-	public void findTotalValueOfProductsTest() {
+	public void insertProductMovementTest() {
+		ProductMovementDTO dto = new ProductMovementDTO(null, 2, 199.0, 2, "Qualquernome", 1, "OUTPUT");
 		HttpHeaders headers = getHeaders("Email 1", "Senha 1");
-		HttpEntity<Double> requestEntity = new HttpEntity<>(headers);
-		ResponseEntity<Double> response = rest.exchange(
-	            "/reports/total-value-of-products",
-	            HttpMethod.GET,
-	            requestEntity,
-	            new ParameterizedTypeReference<Double>() {}
-	        );
-	    assertEquals(HttpStatus.OK, response.getStatusCode());
-	    Double value = response.getBody();
-	    assertEquals(3094.0, value);
+		HttpEntity<ProductMovementDTO> requestEntity = new HttpEntity<>(dto, headers);
+		ResponseEntity<ProductMovementDTO> responseEntity = rest.exchange(
+	            "/productMovement", 
+	            HttpMethod.POST,  
+	            requestEntity,    
+	            ProductMovementDTO.class   
+	    );
+		assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+		ProductMovementDTO pm = responseEntity.getBody();
+		assertEquals(199.0, pm.getPrice());
+		assertEquals("Produto 2", pm.getProductName());
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

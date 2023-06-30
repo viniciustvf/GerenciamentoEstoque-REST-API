@@ -44,7 +44,7 @@ public class ReportServiceImpl implements ReportService {
 	@Override
 	public ProductMovementDateDTO findProductByDate(String date) {
 		List<Movement> movements = movementService.findByDateTimeContainsDate(DateUtils.strToZonedDate(date));
-		List<ProductDTO> products = movements.stream().flatMap(movement -> {
+		List<ProductDTO> products = movements.stream().flatMap(movement -> { 
 			try {
 				return productMovementService.findByMovement(movement).stream();
 			} catch (ObjectNotFound e) {
@@ -58,9 +58,6 @@ public class ReportServiceImpl implements ReportService {
 	@Override
 	public ClientsOfSellerDTO findClientsOfSeller(Integer sellerId) {
 		Seller seller = sellerService.findById(sellerId);
-		if (seller == null) {
-			throw new ObjectNotFound("Vendedor não encontrado");
-		}
 
 		List<Output> outputs = outputService.findBySeller(seller);
 

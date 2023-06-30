@@ -2,6 +2,7 @@ package com.trier.gerenciamentoestoque.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
@@ -37,7 +38,9 @@ public class EntryServiceTest extends BaseTests {
     @Sql({"classpath:/resources/sqls/supplier.sql"})
     @Sql({"classpath:/resources/sqls/entry.sql"})
     void findByIdTest() {
-        var entry = service.findById(1);
+		var entryNull = service.findById(0);
+		assertNull(entryNull);
+		var entry = service.findById(1);
         assertNotNull(entry);
         assertEquals(1, entry.getId());
         var exception = assertThrows(ObjectNotFound.class,() -> service.findById(10));
