@@ -1,5 +1,6 @@
 # Gerenciamento de Estoque API Rest
 Projeto em desenvolvimento. Estágio Jovem Dev - Trier Sistemas
+
 A solução permite que o usuário obtenha relatório de valor total de estoque, movimentações de produtos por data, controle de entrada e saída e etc.
 # Tecnologias utilizadas 
 Spring, JPA, Hibernate, Postgres, JUnit 5, Postman & DBeaver
