@@ -60,4 +60,22 @@ public class JwtResourceTest {
 		assertEquals(response.getStatusCode(), HttpStatus.OK);
 	}
 
+	
+	@Test
+	@DisplayName("Obter Token Inválido")
+	@Sql({"classpath:/resources/sqls/clean_tables.sql"})
+	@Sql({"classpath:/resources/sqls/user.sql"})
+	public void getTokenWrongTest() {
+		LoginDTO loginDTO = new LoginDTO("Email Errado", "Senha 1");
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity<LoginDTO> requestEntity = new HttpEntity<>(headers);
+		ResponseEntity<String> responseEntity = rest.exchange(
+				"/auth/token", 
+				HttpMethod.POST,  
+				requestEntity,    
+				String.class   
+				);
+		assertEquals(responseEntity.getStatusCode(), HttpStatus.FORBIDDEN);
+	}
 }

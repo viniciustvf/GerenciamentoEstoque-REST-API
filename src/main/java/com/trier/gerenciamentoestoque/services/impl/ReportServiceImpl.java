@@ -67,7 +67,7 @@ public class ReportServiceImpl implements ReportService {
 				clients);
 		return responseDTO;
 	}
-
+ 
 	@Override
 	public Double findTotalValueOfProducts() {
 		Double value = productService.findTotalValueOfProducts();

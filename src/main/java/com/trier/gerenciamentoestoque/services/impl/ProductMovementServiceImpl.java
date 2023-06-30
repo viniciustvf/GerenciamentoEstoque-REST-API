@@ -21,7 +21,7 @@ public class ProductMovementServiceImpl implements ProductMovementService {
 	private ProductMovementRepository repository;
 
 	private void validateProductMovement(ProductMovement productMovement) {
-		if (productMovement.getMovement() == null) {
+		if (productMovement.getMovement() == null) { 
 			throw new IntegrityViolation("Movimento não pode ser nulo");
 		}
 		if (productMovement.getProduct() == null) {

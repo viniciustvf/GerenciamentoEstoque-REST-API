@@ -50,8 +50,7 @@ public class ProductMovementResource {
 
 	@Secured({ "ROLE_ADMIN" })
 	@PutMapping("/{id}")
-	public ResponseEntity<ProductMovementDTO> update(@PathVariable Integer id,
-			@RequestBody ProductMovementDTO ProductMovement) {
+	public ResponseEntity<ProductMovementDTO> update(@PathVariable Integer id, @RequestBody ProductMovementDTO ProductMovement) {
 		ProductMovement pm = new ProductMovement(ProductMovement,
 				productService.findById(ProductMovement.getProductId()),
 				movementService.findById(ProductMovement.getMovementId()));
